@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planner</title>
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <meta name="theme-color" content="#2f7a68">
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; background: #f3f8f6; color: #1f2a30;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px; line-height: 1.5; padding: 24px;
+    }
+    .card {
+      background: #fff; border: 1px solid #dfe9e5; border-radius: 16px;
+      box-shadow: 0 1px 2px rgba(31,42,48,.04); padding: 28px 24px;
+      width: 100%; max-width: 380px; text-align: center;
+    }
+    .mark {
+      width: 64px; height: 64px; border-radius: 18px; margin: 0 auto 16px;
+      display: block;
+    }
+    h1 { font-size: 1.5rem; font-weight: 500; margin: 0 0 6px; }
+    p.sub { color: #5a6b70; margin: 0 0 22px; }
+    input {
+      width: 100%; border: 1px solid #dfe9e5; border-radius: 14px;
+      padding: 16px; font-size: 1.6rem; text-align: center;
+      letter-spacing: 0.4em; background: #fff; color: #1f2a30;
+      font-family: inherit;
+    }
+    input:focus { outline: 2px solid #2f7a68; outline-offset: -1px; }
+    button {
+      width: 100%; min-height: 56px; margin-top: 14px; border: 0;
+      border-radius: 16px; background: #2f7a68; color: #fff;
+      font-size: 1.08rem; font-weight: 500; font-family: inherit;
+      cursor: pointer;
+    }
+    button:active { background: #25634f; }
+    .error {
+      margin-top: 16px; color: #a3453a; background: #fbe6e6;
+      border-radius: 12px; padding: 12px; font-size: 0.98rem;
+    }
+    .error:empty { display: none; }
+  </style>
+</head>
+<body>
+  <form class="card" method="POST" action="/login">
+    <img src="/icons/icon-192.png" alt="" class="mark">
+    <h1>Meal Planner</h1>
+    <p class="sub">Enter the family PIN to continue.</p>
+    <input id="pin" name="pin" type="password" inputmode="numeric"
+           autocomplete="current-password" placeholder="PIN"
+           aria-label="Family PIN" autofocus required>
+    <button type="submit">Open the app</button>
+    <p class="error" id="error">__ERROR__</p>
+  </form>
+</body>
+</html>

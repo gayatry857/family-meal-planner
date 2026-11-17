@@ -1,0 +1,14 @@
+# Keep shell scripts LF so they run on Azure Linux, whatever Windows does locally.
+*.sh text eol=lf
+startup.sh text eol=lf
+
+# Treat these as text with normalised endings
+*.py text
+*.js text
+*.html text
+*.json text
+*.md text
+
+# Never touch binaries
+*.png binary
+*.pdf binary

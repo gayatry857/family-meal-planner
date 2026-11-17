@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planner</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2f7a68">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Meals">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: "#f3f8f6",
+            surface: "#ffffff",
+            ink: "#1f2a30",
+            sub: "#5a6b70",
+            line: "#dfe9e5",
+            accent: { DEFAULT: "#2f7a68", dark: "#25634f", tint: "#ddefe9" },
+            // Soft pastels for icon chips and section accents.
+            mint: "#ddefe9", sky: "#dcebf6", blush: "#fbe6e6",
+            lavender: "#e9e4f6", butter: "#fbf1d9", peach: "#fde8dc",
+          },
+          fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+          borderRadius: { xl: "16px" },
+        },
+      },
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+  <style>
+    body { font-size: 17px; line-height: 1.5; }
+    h1 { letter-spacing: -0.01em; }
+    button { min-height: 48px; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 10px;
+           width: 100%; border-radius: 16px; font-weight: 500; font-size: 1.08rem;
+           padding: 0 18px; min-height: 56px; }
+    .btn-primary { background: #2f7a68; color: #fff; box-shadow: 0 1px 2px rgba(31,42,48,.08); }
+    .btn-primary:active { background: #25634f; }
+    .btn-outline { background: #fff; border: 1px solid #dfe9e5; color: #1f2a30; }
+    .btn-outline:active { background: #ddefe9; }
+    .btn-danger { background: #fff; border: 1px solid #f0cdcd; color: #a3453a; }
+    .card { background: #fff; border: 1px solid #dfe9e5; border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(31,42,48,.04); }
+    .input { width: 100%; border: 1px solid #dfe9e5; border-radius: 14px;
+             padding: 13px 15px; font-size: 1.05rem; background: #fff; color: #1f2a30; }
+    .input:focus { outline: 2px solid #2f7a68; outline-offset: -1px; }
+    .icon { width: 20px; height: 20px; flex: none; }
+  </style>
+</head>
+<body class="bg-paper text-ink font-sans min-h-screen">
+  <div class="max-w-md mx-auto pb-12">
+    <header class="flex items-center justify-between px-5 pt-5 pb-3">
+      <button id="btn-home" class="flex items-center gap-2 text-accent font-medium !min-h-0 py-2">
+        <i data-lucide="house" class="icon"></i><span>Home</span>
+      </button>
+      <span class="text-sub text-sm" id="header-note"></span>
+    </header>
+    <main id="screen" class="px-5 space-y-4"></main>
+  </div>
+  <!-- Bump ?v= whenever app.js changes, so phones don't keep a stale copy. -->
+  <script src="/app.js?v=10"></script>
+</body>
+</html>
