@@ -16,16 +16,17 @@ from . import db
 
 # Invented people. Not real; chosen to show different diets and health rules.
 SAMPLE_MEMBERS = [
-    {"name": "Asha (sample)", "diet": "non-veg", "health_conditions": "High cholesterol",
+    {"name": "Asha", "diet": "non-veg", "health_conditions": "High cholesterol",
      "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Ravi (sample)", "diet": "non-veg", "health_conditions": "Diabetes",
+    {"name": "Ravi", "diet": "non-veg", "health_conditions": "Diabetes",
      "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Meera (sample)", "diet": "veg", "health_conditions": "Lactose intolerance",
+    {"name": "Meera", "diet": "veg", "health_conditions": "Lactose intolerance",
      "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Grandpa Joe (sample)", "diet": "eggetarian", "health_conditions": "High blood pressure",
+    {"name": "Grandpa Joe", "diet": "eggetarian", "health_conditions": "High blood pressure",
      "likes": "", "dislikes": "", "in_household": False},
 ]
 
+SEED_VERSION = "2"  # bump to force a one-time re-seed of the sample households
 MAX_MEMBERS = 8
 MAX_USER_RECIPES = 15
 
@@ -101,7 +102,7 @@ def reset_if_new_day() -> None:
     Check, wipe and re-seed share one write transaction, so two worker
     processes crossing midnight together cannot both seed the households.
     """
-    today = date.today().isoformat()
+    today = date.today().isoformat() + "/" + SEED_VERSION
     conn = db.get_conn()
     try:
         _ensure_tables(conn)
@@ -114,7 +115,7 @@ def reset_if_new_day() -> None:
         conn.execute("DELETE FROM favorite")
         conn.execute("DELETE FROM family_member")
         conn.execute("DELETE FROM recipe WHERE source='user'")
-        conn.execute("DELETE FROM demo_usage WHERE day != ?", (today,))
+        conn.execute("DELETE FROM demo_usage WHERE day != ?", (date.today().isoformat(),))
         for m in SAMPLE_MEMBERS:
             conn.execute(
                 "INSERT INTO family_member (name, diet, health_conditions, likes, dislikes, in_household)"

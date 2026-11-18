@@ -21,7 +21,7 @@ Planning a week of meals for a family is a daily chore, and harder when one pers
 
 **Live demo: https://family-meal-planner.azurewebsites.net**
 
-No sign-up or install needed. Open the link, pick one of the four sample people (invented, marked "sample"), and tap **Plan the week**. The first load can take about 30 seconds while the server wakes up.
+No sign-up or install needed. Open the link, pick one of the four sample people (all invented), and tap **Plan the week**. The first load can take about 30 seconds while the server wakes up.
 
 The demo is for visitors, so it works differently from the private family version: there is no PIN, your changes are wiped every night, and AI-built menus are limited each day (3 per visitor). After that, the app still builds menus with its own rule engine.
 
