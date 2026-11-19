@@ -2,6 +2,8 @@
 
 A phone-first web app that plans a week of Kerala family meals around each person's diet and health needs, then turns the plan into a grocery list.
 
+**Try it now: https://family-meal-planner.azurewebsites.net** (no sign-up; first load can take about 30 seconds)
+
 ![Home screen](docs/home.png) ![Weekly menu](docs/menu.png)
 
 ## The problem
@@ -18,8 +20,6 @@ Planning a week of meals for a family is a daily chore, and harder when one pers
 - **Private by default:** the real family copy sits behind a strong PIN with lockout and idle timeout.
 
 ## Try it
-
-**Live demo: https://family-meal-planner.azurewebsites.net**
 
 No sign-up or install needed. Open the link, pick one of the four sample people (all invented), and tap **Plan the week**. The first load can take about 30 seconds while the server wakes up.
 
