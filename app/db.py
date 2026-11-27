@@ -3,7 +3,6 @@
 import json
 import os
 import sqlite3
-import tempfile
 from pathlib import Path
 
 APP_DIR = Path(__file__).resolve().parent
@@ -114,27 +113,6 @@ def get_conn() -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
-
-
-def backup_bytes() -> bytes:
-    """A consistent copy of the whole database, safe to take while running.
-
-    sqlite3's online backup API copies page by page and starts over if a write
-    lands mid-copy, so the result is always a valid database. Reading the file
-    off disk directly could catch it half-written.
-    """
-    with tempfile.TemporaryDirectory() as tmp:
-        target = Path(tmp) / "backup.db"
-        source = sqlite3.connect(DB_PATH)
-        try:
-            dest = sqlite3.connect(target)
-            try:
-                source.backup(dest)
-            finally:
-                dest.close()
-        finally:
-            source.close()
-        return target.read_bytes()
 
 
 _SMALL_WORDS = {"with", "and", "or", "of", "in", "a", "the", "for", "to"}
@@ -339,6 +317,7 @@ def init_db() -> None:
                              (*updates.values(), row["id"]))
 
         _upsert_seed_recipes(conn, recipes)
+        _seed_demo_household(conn)
 
         # Backfill component on any remaining rows (user-added recipes).
         for row in conn.execute("SELECT id, name, meal_type, tags FROM recipe WHERE component=''").fetchall():
@@ -370,6 +349,37 @@ def recipe_count() -> int:
 
 
 # ---------- family members ----------
+
+# Invented people, so the demo has a household to plan for. Their conditions
+# are the ones the rules engine actually reacts to (diabetes softens the
+# sweets, cholesterol caps fried fish at three a week, lactose and gluten
+# filter recipes outright), which is the point of showing them at all.
+DEMO_HOUSEHOLD = [
+    {"name": "Meera", "diet": "non-veg", "health_conditions": "High cholesterol",
+     "likes": "Fish Curry, Avial", "dislikes": "Bitter Gourd", "in_household": 1},
+    {"name": "Ravi", "diet": "non-veg", "health_conditions": "Type 2 diabetes",
+     "likes": "Sambar", "dislikes": "", "in_household": 1},
+    {"name": "Anjali", "diet": "eggetarian", "health_conditions": "",
+     "likes": "Dosa, Chia Seeds Pudding", "dislikes": "Mushroom", "in_household": 1},
+]
+
+
+def _seed_demo_household(conn: sqlite3.Connection) -> None:
+    """Give an empty database somebody to cook for.
+
+    Only ever runs when the table is empty, so real profiles added through the
+    app are never touched or duplicated.
+    """
+    if conn.execute("SELECT COUNT(*) FROM family_member").fetchone()[0]:
+        return
+    for m in DEMO_HOUSEHOLD:
+        conn.execute(
+            "INSERT INTO family_member (name, diet, health_conditions, likes,"
+            " dislikes, in_household) VALUES (?, ?, ?, ?, ?, ?)",
+            (m["name"], m["diet"], m["health_conditions"], m["likes"],
+             m["dislikes"], m["in_household"]),
+        )
+
 
 def _member_row_to_dict(row: sqlite3.Row) -> dict:
     d = dict(row)

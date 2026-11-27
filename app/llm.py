@@ -515,8 +515,12 @@ STRICT_SUFFIX = (
 )
 
 
-def _parse_json(raw: str) -> dict:
-    """Parse model output defensively: strip code fences, extract the {...} block."""
+def _parse_json(raw: str):
+    """Parse model output defensively: strip code fences, extract the JSON.
+
+    Returns whatever the model sent, which is usually an object but is
+    sometimes a bare array; callers normalise.
+    """
     text = raw.strip()
     if text.startswith("```"):
         text = text.split("```", 2)[1] if text.count("```") >= 2 else text.lstrip("`")
@@ -524,10 +528,25 @@ def _parse_json(raw: str) -> dict:
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        start, end = text.find("{"), text.rfind("}")
-        if start != -1 and end > start:
+        # Whichever bracket opens first is the outer one. Checking "{" first
+        # would pull a single day object out of a bare array wrapped in prose.
+        spans = [(text.find(o), text.rfind(c)) for o, c in (("{", "}"), ("[", "]"))]
+        spans = [(s, e) for s, e in spans if s != -1 and e > s]
+        if spans:
+            start, end = min(spans)
             return json.loads(text[start:end + 1])
         raise
+
+
+def week_days(candidate):
+    """The week's days out of a model answer, or None if there are none.
+
+    Gemini answers the week prompt either as {"days": [...]} or as the bare
+    array of days. Both say the same thing, so both are accepted; anything
+    else is treated as a failed attempt.
+    """
+    days = candidate.get("days") if isinstance(candidate, dict) else candidate
+    return days if isinstance(days, list) and days else None
 
 
 def _chat_json(prompt: str, num_predict: int, temperature: float) -> dict:
@@ -626,17 +645,18 @@ Return ONLY valid JSON, all 7 days Monday to Sunday, exactly this shape (omit op
     if allow_ai:
         parsed, ai_error = _chat_json_with_retry(
             prompt, num_predict=4096,
-            validate=lambda c: isinstance(c.get("days"), list) and bool(c["days"]),
+            validate=lambda c: week_days(c) is not None,
         )
-    else:  # e.g. the public demo's daily AI limit was reached
+    else:  # the public demo's daily AI limit was reached
         parsed, ai_error = None, skip_reason
-    if parsed is None:
+    days_in = week_days(parsed) if parsed is not None else None
+    if days_in is None:
         logger.warning("plan_week: both AI attempts failed, using deterministic fallback")
         source = "fallback"
-        parsed = {"days": [{"day": d} for d in DAYS]}
+        days_in = [{"day": d} for d in DAYS]
 
     by_day = {}
-    for entry in parsed["days"]:
+    for entry in days_in:
         if isinstance(entry, dict) and entry.get("day") in DAYS:
             by_day[entry["day"]] = entry
 

@@ -1,7 +1,7 @@
 """Public demo mode (DEMO_MODE=1).
 
 A recruiter-facing copy of the app that runs with its own empty database,
-invented sample households, no PIN, and a hard daily cap on AI requests so
+invented sample household, no PIN, and a hard daily cap on AI requests so
 strangers cannot run up the Gemini bill. Nothing here ever touches the real
 family app, which is a separate deployment with a separate database.
 
@@ -14,21 +14,11 @@ from datetime import date
 
 from . import db
 
-# Invented people. Not real; chosen to show different diets and health rules.
-SAMPLE_MEMBERS = [
-    {"name": "Asha", "diet": "non-veg", "health_conditions": "High cholesterol",
-     "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Ravi", "diet": "non-veg", "health_conditions": "Diabetes",
-     "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Meera", "diet": "veg", "health_conditions": "Lactose intolerance",
-     "likes": "", "dislikes": "", "in_household": True},
-    {"name": "Grandpa Joe", "diet": "eggetarian", "health_conditions": "High blood pressure",
-     "likes": "", "dislikes": "", "in_household": False},
-]
-
-SEED_VERSION = "2"  # bump to force a one-time re-seed of the sample households
+SEED_VERSION = "3"  # bump to force a one-time re-seed of the sample household
 MAX_MEMBERS = 8
 MAX_USER_RECIPES = 15
+MAX_BODY_BYTES = 8_000  # profile text ends up in the AI prompt
+HEALTH_CACHE_SECONDS = 3600
 
 
 def enabled() -> bool:
@@ -97,7 +87,7 @@ def try_use_ai(visitor: str) -> tuple[bool, str]:
 
 
 def reset_if_new_day() -> None:
-    """Wipe visitor changes once a day and restore the sample households.
+    """Wipe visitor changes once a day and restore the sample household.
 
     Check, wipe and re-seed share one write transaction, so two worker
     processes crossing midnight together cannot both seed the households.
@@ -116,7 +106,7 @@ def reset_if_new_day() -> None:
         conn.execute("DELETE FROM family_member")
         conn.execute("DELETE FROM recipe WHERE source='user'")
         conn.execute("DELETE FROM demo_usage WHERE day != ?", (date.today().isoformat(),))
-        for m in SAMPLE_MEMBERS:
+        for m in db.DEMO_HOUSEHOLD:
             conn.execute(
                 "INSERT INTO family_member (name, diet, health_conditions, likes, dislikes, in_household)"
                 " VALUES (?, ?, ?, ?, ?, ?)",

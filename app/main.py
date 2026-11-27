@@ -2,6 +2,7 @@
 
 import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from datetime import date, timedelta
 from pathlib import Path
@@ -11,11 +12,11 @@ from dotenv import load_dotenv
 # Load .env (the API key) before anything reads the environment.
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-from fastapi import FastAPI, Form, HTTPException, Request, Response  # noqa: E402
+from fastapi import FastAPI, HTTPException, Request, Response  # noqa: E402
 from fastapi.responses import HTMLResponse, RedirectResponse  # noqa: E402
 from fastapi.staticfiles import StaticFiles  # noqa: E402
 
-from . import auth, db, demo, grocery, llm, pdf  # noqa: E402
+from . import db, demo, grocery, llm, pdf  # noqa: E402
 from .models import (  # noqa: E402
     FamilyMemberIn, GroceryItemIn, MenuItemAddIn, MenuItemIn, PdfRequest,
     PlanRequest, RecipeIn,
@@ -80,9 +81,9 @@ async def lifespan(app: FastAPI):
     db.init_db()
     if demo.enabled():
         demo.reset_if_new_day()
-        logger.info("DEMO MODE: no PIN, sample households, AI limited to %d/day (%d per visitor)",
+        logger.info("DEMO MODE: AI limited to %d/day (%d per visitor)",
                     demo.global_limit(), demo.per_visitor_limit())
-    status = llm.check_ai()
+    status = _ai_status()
     if status["reachable"]:
         logger.info("AI ready: %s (%s)", status["model"], status["provider"])
     else:
@@ -106,9 +107,40 @@ def _rules() -> llm.Rules:
     return llm.Rules({key: db.get_setting(key) for key in db.METADATA_KEYS})
 
 
+_health_cache: dict = {"at": 0.0, "status": None}
+
+
+def _ai_status() -> dict:
+    """llm.check_ai() makes a real AI call, so the demo reuses the answer for an
+    hour; otherwise refreshing /api/health would be an uncapped way to spend."""
+    if not demo.enabled():
+        return llm.check_ai()
+    if _health_cache["status"] is None or time.time() - _health_cache["at"] > demo.HEALTH_CACHE_SECONDS:
+        _health_cache.update(at=time.time(), status=llm.check_ai())
+    return _health_cache["status"]
+
+
+def _client_ip(request: Request) -> str:
+    """Azure's proxy appends the real address LAST; earlier entries can be faked."""
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[-1].strip().rsplit(":", 1)[0]
+    return request.client.host if request.client else "unknown"
+
+
+@app.middleware("http")
+async def demo_guard(request: Request, call_next):
+    if demo.enabled():
+        if request.method in ("POST", "PUT"):
+            if len(await request.body()) > demo.MAX_BODY_BYTES:
+                return Response("That is too much text for the demo.", status_code=413)
+        demo.reset_if_new_day()
+    return await call_next(request)
+
+
 @app.get("/api/health")
 def health():
-    ai_status = llm.check_ai()
+    ai_status = _ai_status()
     return {
         "status": "ok" if ai_status["reachable"] else "degraded",
         "database": {
@@ -130,7 +162,7 @@ def get_members():
 @app.post("/api/members")
 def create_member(member: FamilyMemberIn):
     if demo.enabled() and len(db.list_members()) >= demo.MAX_MEMBERS:
-        raise HTTPException(429, "The demo allows up to %d people; they are cleared every night." % demo.MAX_MEMBERS)
+        raise HTTPException(429, "The demo is full; added people are cleared every night.")
     return db.create_member(member.model_dump())
 
 
@@ -275,14 +307,6 @@ def _menu_response(menu: dict) -> dict:
         "time_crunch": menu["time_crunch"],
         "days": [{"day": d, "meals": grid[d]} for d in llm.DAYS],
     }
-
-
-def _client_ip(request: Request) -> str:
-    """Visitor address. Behind Azure's proxy the real one is in X-Forwarded-For."""
-    forwarded = request.headers.get("x-forwarded-for", "")
-    if forwarded:
-        return forwarded.split(",")[0].strip().split(":")[0]
-    return request.client.host if request.client else "unknown"
 
 
 @app.post("/api/plan")
@@ -529,146 +553,16 @@ def delete_grocery(item_id: int):
     return {"deleted": True}
 
 
-@app.get("/api/backup")
-def download_backup():
-    if demo.enabled():
-        raise HTTPException(404, "Backups are switched off in the demo")
-    """Hand over a copy of the database so one can be kept off Azure.
-
-    Azure snapshots the app hourly, but those copies live in the same
-    datacentre and cannot be downloaded. This is the escape hatch: the whole
-    recipe book, family and saved menus in one file. It sits behind the PIN
-    like every other /api route.
-    """
-    name = f"meal-planner-backup-{date.today().isoformat()}.db"
-    return Response(
-        content=db.backup_bytes(),
-        media_type="application/octet-stream",
-        headers={"Content-Disposition": f'attachment; filename="{name}"'},
-    )
-
-
-# ---------- PIN gate ----------
-
-# Reachable without the PIN: the login page itself, its form handler, the
-# icon it shows, and a bare uptime check for Azure.
-PUBLIC_PATHS = {"/login", "/logout", "/api/ping", "/manifest.json", "/favicon.ico"}
-# /assets/ holds the logo the login page shows before anyone has signed in.
-PUBLIC_PREFIXES = ("/icons/", "/assets/")
-
-
-def _login_page(error: str = "", status_code: int = 200) -> HTMLResponse:
-    html = (STATIC_DIR / "login.html").read_text(encoding="utf-8")
-    safe = error.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    return HTMLResponse(html.replace("__ERROR__", safe), status_code=status_code,
-                        headers={"Cache-Control": "no-store"})
-
-
-def _is_public(path: str) -> bool:
-    return path in PUBLIC_PATHS or path.startswith(PUBLIC_PREFIXES)
-
-
-@app.middleware("http")
-async def require_pin(request: Request, call_next):
-    """Every request needs a valid session cookie, checked server-side so the
-    API cannot be reached by skipping the login screen."""
-    path = request.url.path
-    if _is_public(path) or demo.enabled():
-        # The demo holds only invented data, so it has no PIN. The real app
-        # never sets DEMO_MODE, and still fails closed without a PIN.
-        if demo.enabled():
-            demo.reset_if_new_day()  # daily wipe, checked cheaply on each request
-        return await call_next(request)
-
-    if not auth.is_configured():
-        # Fail closed: an unset PIN must never mean an open app.
-        message = ("This app has no PIN set. Add APP_PIN to the .env file "
-                   "(or to the Application Settings when hosted) and restart.")
-        if path.startswith("/api/"):
-            return Response(message, status_code=503, media_type="text/plain")
-        return _login_page(message, status_code=503)
-
-    if auth.token_is_valid(request.cookies.get(auth.COOKIE_NAME)):
-        response = await call_next(request)
-        # Push the idle timeout back, so she is never locked out mid-task.
-        _set_session_cookie(response, request)
-        return response
-
-    if path.startswith("/api/"):
-        return Response("Please sign in again.", status_code=401,
-                        media_type="text/plain")
-    return _login_page()
+# ---------- Public demo ----------
+# This app used to sit behind a shared PIN because it held one family's health
+# details. It is now a portfolio demo seeded with invented people, so there is
+# nothing to guard and no login.
 
 
 @app.get("/api/ping")
 def ping():
-    """Unauthenticated uptime check; deliberately reveals nothing."""
+    """Uptime check for the host."""
     return {"status": "ok"}
-
-
-@app.get("/api/session")
-def session_check():
-    """Behind the PIN gate, so it answers 401 once the session has lapsed.
-
-    The page calls this when it comes back to the foreground, to send her to
-    the PIN screen instead of showing a stale menu that fails on the next tap.
-    """
-    return {"ok": True, "idle_minutes": auth.IDLE_MINUTES}
-
-
-@app.get("/login", response_class=HTMLResponse)
-def login_page(request: Request):
-    if auth.is_configured() and auth.token_is_valid(request.cookies.get(auth.COOKIE_NAME)):
-        return RedirectResponse("/", status_code=303)
-    return _login_page()
-
-
-def _set_session_cookie(response: Response, request: Request) -> None:
-    """Issue or renew the signed session cookie.
-
-    Deliberately no max_age: the browser drops it when the browsing session
-    ends, and the token's own expiry caps how long an idle session survives.
-    Renewing it on every request slides that expiry forward.
-    """
-    response.set_cookie(
-        auth.COOKIE_NAME,
-        auth.make_session_token(),
-        httponly=True,                      # not readable from JavaScript
-        samesite="lax",
-        secure=_is_secure_request(request),  # never send the session over plain HTTP
-        path="/",
-    )
-
-
-def _is_secure_request(request: Request) -> bool:
-    """Whether the browser reached us over HTTPS.
-
-    Azure terminates TLS at its load balancer, so requests arrive as plain
-    HTTP and request.url.scheme reads "http" even on an https:// URL. The
-    original scheme survives in X-Forwarded-Proto.
-    """
-    forwarded = request.headers.get("x-forwarded-proto", "")
-    if forwarded:
-        return forwarded.split(",")[0].strip().lower() == "https"
-    return request.url.scheme == "https"
-
-
-@app.post("/login")
-def login_submit(request: Request, pin: str = Form("")):
-    client_ip = request.client.host if request.client else "unknown"
-    ok, message = auth.check_pin(pin, client_ip)
-    if not ok:
-        return _login_page(message, status_code=401)
-    response = RedirectResponse("/", status_code=303)
-    _set_session_cookie(response, request)
-    return response
-
-
-@app.get("/logout")
-def logout():
-    response = RedirectResponse("/login", status_code=303)
-    response.delete_cookie(auth.COOKIE_NAME, path="/")
-    return response
 
 
 class AppFiles(StaticFiles):

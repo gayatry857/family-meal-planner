@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartPlate</title>
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4FA07E">
+  <meta name="theme-color" content="#11211b">
   <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
   <link rel="apple-touch-icon" href="/icons/icon-180.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,26 +15,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* SmartPlate palette. Two shades carry the brand hues at text contrast:
-       --sage-ink and --coral-ink. The lighter --sage and --coral are for
-       fills, outlines and the mark, never for words. */
+    /* SmartPlate, dark. The app is a lit kitchen at night: a deep green room,
+       and one warm paper card carrying today's food. Everything else stays
+       quiet so the menu is the thing you see first. */
     :root {
-      color-scheme: light;
-      --cream:       #fbf8f2;  /* page */
-      --mint:        #e7f2ec;  /* panels, selected chips, icon tiles */
-      --surface:     #ffffff;  /* cards */
-      --sage:        #4fa07e;  /* brand accent: fills, borders, the mark */
-      --sage-ink:    #367a5e;  /* the same green, dark enough to read */
-      --sage-dark:   #2e6950;  /* pressed */
-      --forest:      #2f4a3e;  /* headings and body */
-      --forest-soft: #5a7368;  /* secondary text */
-      --line:        #dce7e0;  /* hairlines */
-      --coral:       #e58b6a;  /* secondary accent: outlines */
-      --coral-ink:   #c96440;  /* coral at readable contrast */
-      --amber:       #efb44c;  /* small highlights, Family recipe */
-      --danger:      #a3453a;
-      --danger-line: #e8c9c2;
-      --radius-card: 12px;
+      color-scheme: dark;
+      --ground:     #11211b;  /* page */
+      --surface:    #1a2f27;  /* tiles and panels */
+      --surface-up: #244136;  /* pressed / hover */
+      --paper:      #f6f2e8;  /* the one bright card: today's menu */
+      --paper-ink:  #16271f;  /* text on paper */
+      --paper-soft: #5d6f63;  /* secondary text on paper */
+      --ink:        #f3f7f4;  /* text on the dark ground */
+      --ink-soft:   #9db5a8;  /* secondary text on the dark ground */
+      --ink-faint:  rgba(243, 247, 244, 0.30);  /* chevrons and other affordances */
+      --line:       rgba(243, 247, 244, 0.10);
+      --sage:       #6fc79c;  /* accent, bright enough to read on the ground */
+      --sage-deep:  #4aa87c;
+      --amber:      #f0b95a;  /* highlights, the family-recipe badge */
+      --coral:      #ee9a78;
+      --danger:     #f08a7c;
+      --radius-card: 14px;
       --radius-ctrl: 10px;
     }
   </style>
@@ -43,26 +44,30 @@
       theme: {
         extend: {
           colors: {
-            cream: "var(--cream)",
-            mint: "var(--mint)",
+            ground: "var(--ground)",
             surface: "var(--surface)",
+            paper: "var(--paper)",
+            "paper-ink": "var(--paper-ink)",
+            "paper-soft": "var(--paper-soft)",
             sage: "var(--sage)",
-            forest: "var(--forest)",
-            coral: "var(--coral)",
             amber: "var(--amber)",
+            coral: "var(--coral)",
             line: "var(--line)",
-            // Kept under the old names so every screen keeps working:
-            // "accent" is now the readable green, "sub" the muted text.
-            accent: { DEFAULT: "var(--sage-ink)", tint: "var(--mint)" },
-            ink: "var(--forest)",
-            sub: "var(--forest-soft)",
+            faint: "var(--ink-faint)",
+            // Old names kept so every other screen keeps working unchanged.
+            accent: { DEFAULT: "var(--sage)", tint: "var(--surface-up)" },
+            ink: "var(--ink)",
+            sub: "var(--ink-soft)",
+            mint: "var(--surface-up)",
+            forest: "var(--ink)",
+            cream: "var(--ground)",
             danger: "var(--danger)",
           },
           fontFamily: {
             sans: ["Inter", "system-ui", "sans-serif"],
             display: ["Poppins", "Inter", "system-ui", "sans-serif"],
           },
-          borderRadius: { xl: "12px", "2xl": "14px" },
+          borderRadius: { xl: "14px", "2xl": "16px" },
         },
       },
     };
@@ -71,58 +76,245 @@
   <style>
     body { font-size: 17px; line-height: 1.5; }
     h1, h2, .font-display { font-family: Poppins, Inter, system-ui, sans-serif; }
-    h1 { letter-spacing: -0.01em; }
+    h1 { letter-spacing: -0.015em; }
     button { min-height: 48px; }
 
     .btn { display: flex; align-items: center; justify-content: center; gap: 10px;
            width: 100%; border-radius: var(--radius-ctrl); font-weight: 500;
            font-size: 1.08rem; padding: 0 18px; min-height: 56px;
            transition: background-color .12s ease-out, border-color .12s ease-out; }
-    .btn-primary { background: var(--sage-ink); color: #fff; }
-    .btn-primary:active { background: var(--sage-dark); }
+    .btn-primary { background: var(--sage); color: var(--ground); }
+    .btn-primary:active { background: var(--sage-deep); }
     .btn-outline { background: var(--surface); border: 1px solid var(--line);
-                   color: var(--forest); }
-    .btn-outline:active { background: var(--mint); }
-    /* Secondary actions take the coral outline. */
-    .btn-second { background: var(--surface); border: 1px solid var(--coral);
-                  color: var(--coral-ink); }
-    .btn-second:active { background: #fdf1ec; }
-    .btn-danger { background: var(--surface); border: 1px solid var(--danger-line);
+                   color: var(--ink); }
+    .btn-outline:active { background: var(--surface-up); }
+    .btn-second { background: transparent; border: 1px solid var(--coral);
+                  color: var(--coral); }
+    .btn-second:active { background: var(--surface-up); }
+    .btn-danger { background: transparent; border: 1px solid var(--danger);
                   color: var(--danger); }
 
     .card { background: var(--surface); border: 1px solid var(--line);
             border-radius: var(--radius-card); }
-    /* A quiet note inside a card: the recipe note, a tip. */
-    .note { background: var(--mint); border-radius: var(--radius-ctrl); padding: 12px 14px; }
-    /* Something went wrong but the app still works. */
+    .note { background: var(--surface-up); border-radius: var(--radius-ctrl);
+            padding: 12px 14px; }
     .notice { background: var(--surface); border: 1px solid var(--line);
               border-left: 4px solid var(--amber); border-radius: var(--radius-ctrl);
               padding: 12px 14px; }
 
     .input { width: 100%; border: 1px solid var(--line); border-radius: var(--radius-ctrl);
              padding: 13px 15px; font-size: 1.05rem; background: var(--surface);
-             color: var(--forest); }
-    .input:focus { outline: 2px solid var(--sage-ink); outline-offset: -1px; }
+             color: var(--ink); }
+    .input::placeholder { color: var(--ink-soft); }
+    .input:focus { outline: 2px solid var(--sage); outline-offset: -1px; }
     .icon { width: 20px; height: 20px; flex: none; }
 
-    /* The wordmark, which is also the way home. */
+    /* ---------- Today's menu: the one bright thing on the screen ---------- */
+    .menu-card { background: var(--paper); color: var(--paper-ink);
+                 border-radius: var(--radius-card); width: 100%;
+                 text-align: left; padding: 20px; display: block; }
+    .menu-card .meal { color: var(--paper-soft); font-size: .95rem; }
+    .menu-card .dishes { font-family: Poppins, Inter, sans-serif; font-weight: 500;
+                         font-size: 1.22rem; line-height: 1.35; letter-spacing: -0.01em; }
+    .menu-card .row + .row { margin-top: 16px; border-top: 1px solid rgba(22,39,31,.10);
+                             padding-top: 16px; }
+
+    /* ---------- A day in the week ----------
+       Seven identical blocks give the eye nowhere to land, so the day being
+       cooked is lit: the same paper as the card on the landing page. Meal and
+       slot names take their colour from whichever card they are sitting in,
+       which is why none of them carry the accent any more. */
+    .day-card { background: var(--surface); border: 1px solid var(--line);
+                border-radius: var(--radius-card); padding: 16px;
+                color: var(--ink); }
+    .day-card .day-name { font-family: Poppins, Inter, sans-serif;
+                          font-weight: 500; font-size: 1.125rem;
+                          letter-spacing: -0.01em; }
+    .day-card .day-today { font-size: .875rem; font-weight: 500;
+                           color: var(--ink-soft); }
+    .day-card .day-rule { border-bottom: 1px solid var(--line);
+                          padding-bottom: 12px; }
+    .day-card .meal-name { font-family: Poppins, Inter, sans-serif;
+                           font-size: .875rem; font-weight: 500;
+                           color: var(--ink-soft); padding-bottom: 4px; }
+    .day-card .slot-name { font-size: .875rem; color: var(--ink-soft); }
+    .day-card .row-go { color: var(--ink-faint); }
+    .day-card .meal-rows > button + button { border-top: 1px solid var(--line); }
+    .day-card .add-dish { color: var(--ink-soft); }
+
+    .day-card.is-today { background: var(--paper); border-color: transparent;
+                         color: var(--paper-ink); }
+    .day-card.is-today .day-today,
+    .day-card.is-today .meal-name,
+    .day-card.is-today .slot-name,
+    .day-card.is-today .add-dish { color: var(--paper-soft); }
+    .day-card.is-today .row-go { color: rgba(22, 39, 31, .30); }
+    .day-card.is-today .day-rule,
+    .day-card.is-today .meal-rows > button + button {
+      border-color: rgba(22, 39, 31, .12); }
+
+    /* The grocery category headings use the same quiet label. */
+    .meal-name { font-family: Poppins, Inter, sans-serif; font-size: .875rem;
+                 font-weight: 500; color: var(--ink-soft); padding-bottom: 4px; }
+
+    /* Two tiles under it. No pictograms: a hairline that picks up the tile's
+       colour, the name set large, and a thin arrow in the corner. The weight
+       comes from type and space rather than from an illustration. */
+    .tile { position: relative; background: var(--surface);
+            border: 1px solid var(--line); border-radius: var(--radius-card);
+            padding: 18px 16px 16px; display: flex; flex-direction: column;
+            align-items: flex-start; justify-content: flex-end; gap: 12px;
+            min-height: 128px; color: var(--ink); text-align: left;
+            overflow: hidden; transition: background-color .14s ease-out; }
+    .tile:active { background: var(--surface-up); }
+    .tile .tile-rule { display: block; width: 28px; height: 2px; border-radius: 2px;
+                       background: var(--ink-soft); }
+    .tile .label { font-family: Poppins, Inter, sans-serif; font-weight: 500;
+                   font-size: 1.22rem; line-height: 1.2; letter-spacing: -0.01em; }
+    .tile .tile-go { position: absolute; top: 14px; right: 14px;
+                     font-size: 1.1rem; line-height: 1; color: var(--ink-soft); }
+    /* One of the two leads. Keeping it to a tinted rule and arrow rather than
+       a filled tile leaves the menu card the brightest thing on the screen. */
+    .tile-accent .tile-rule { background: var(--sage); width: 40px; }
+    .tile-accent .tile-go { color: var(--sage); }
+
+    /* Header icon buttons, top right. */
+    .hdr-btn { width: 44px; height: 44px; min-height: 44px; border-radius: 12px;
+               display: flex; align-items: center; justify-content: center;
+               background: var(--surface); border: 1px solid var(--line);
+               color: var(--ink); transition: background-color .12s ease-out; }
+    .hdr-btn:active { background: var(--surface-up); }
+
     .wordmark { font-family: Poppins, Inter, sans-serif; font-weight: 600;
-                font-size: 1.22rem; letter-spacing: -0.01em; color: var(--forest); }
-    .wordmark .plate { color: var(--coral-ink); }
+                font-size: 1.22rem; letter-spacing: -0.01em; color: var(--ink);
+                white-space: nowrap; }
+    .wordmark .plate { color: var(--sage); }
+
+    /* ---------- The opening ----------
+       The plate turns to face you, the sprout is set down on it, the name is
+       written, then the whole lockup flies into the top-left and becomes the
+       header. The flight distance is measured in JS, because it depends on
+       the screen, and handed over as --fx/--fy/--fs. */
+    #splash {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--ground);
+      transition: opacity .3s ease-out;
+    }
+    #splash.splash-out { opacity: 0; pointer-events: none; }
+
+    /* The plate is the only thing in the layout, so it is dead centre on the
+       first frame with nothing to measure. The name is positioned out to its
+       right and takes up no space, so it can be written in later without the
+       plate ever having shifted to make room for it.
+
+       Three transforms, on three nested elements so they never fight:
+       the lockup flies to the header, the inner box slides left to make room
+       for the name, and each letter rises into place. */
+    .splash-lockup { position: relative; transform-origin: top left; }
+    .splash-lockup.fly {
+      transform: translate(var(--fx), var(--fy)) scale(var(--fs));
+      transition: transform .6s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .lockup-inner { position: relative; width: 72px; height: 72px;
+                    transform-origin: top left; }
+    .lockup-inner.slide {
+      transform: translateX(var(--slide));
+      transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .mark-stack { position: absolute; inset: 0; }
+    .mark-stack svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .sp-plate { animation: plate-turn .65s cubic-bezier(.22, .7, .3, 1) both; }
+    @keyframes plate-turn {
+      from { transform: perspective(540px) rotateY(-84deg) scale(.86); opacity: 0; }
+      55%  { opacity: 1; }
+      to   { transform: perspective(540px) rotateY(0deg) scale(1); opacity: 1; }
+    }
+
+    .sp-sprout { animation: sprout-land .5s cubic-bezier(.2, .65, .3, 1) .5s both; }
+    @keyframes sprout-land {
+      from { transform: translateY(-22px) scale(.72); opacity: 0; }
+      to   { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .sp-spark { transform-origin: 82% 29%;
+                animation: spark-in .3s cubic-bezier(.2, .7, .3, 1) .85s both; }
+    @keyframes spark-in {
+      from { transform: scale(.2) rotate(-40deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* Out to the right of the plate and out of the layout. 90px is the
+       header's 40px gap-to-wordmark divided by the 0.444 flight scale, so
+       one scale lands the plate and the name on their header counterparts. */
+    .sp-word {
+      position: absolute; left: 90px; top: 50%; transform: translateY(-50%);
+      font-family: Poppins, Inter, sans-serif; font-weight: 600;
+      font-size: 2.745rem; letter-spacing: -0.01em; color: var(--ink);
+      display: flex; margin: 0; white-space: nowrap;
+    }
+    .sp-word span { display: inline-block;
+                    animation: letter-in .3s cubic-bezier(.2, .7, .3, 1) both;
+                    animation-delay: calc(1.15s + var(--i) * 30ms); }
+    .sp-word .plate { color: var(--sage); }
+    @keyframes letter-in {
+      from { opacity: 0; transform: translateY(9px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sp-plate, .sp-sprout, .sp-spark, .sp-word span { animation: none; }
+      .splash-lockup.fly, .lockup-inner.slide { transition: none; }
+    }
   </style>
 </head>
-<body class="bg-cream text-forest font-sans min-h-screen">
+<body class="bg-ground text-ink font-sans min-h-screen">
+  <!-- In the markup rather than in app.js so it is on screen in the first
+       frame, with no blank flash while the script loads. app.js removes it. -->
+  <div id="splash" role="img" aria-label="SmartPlate">
+    <div class="splash-lockup">
+     <div class="lockup-inner">
+      <div class="mark-stack">
+        <svg class="sp-plate" viewBox="0 0 112 112" aria-hidden="true">
+          <circle cx="55" cy="55" r="52" fill="#e7f2ec" stroke="#4fa07e" stroke-width="5"/>
+          <circle cx="55" cy="55" r="34" fill="none" stroke="#4fa07e" stroke-width="3.5"/>
+        </svg>
+        <svg class="sp-sprout" viewBox="0 0 112 112" aria-hidden="true">
+          <path d="M55 72 L55 46" stroke="#3e8e6e" stroke-width="3.5" stroke-linecap="round"/>
+          <ellipse cx="46" cy="52" rx="10" ry="5.5" fill="#5bb89a" transform="rotate(-35 46 52)"/>
+          <ellipse cx="64" cy="48" rx="10" ry="5.5" fill="#4fa07e" transform="rotate(35 64 48)"/>
+        </svg>
+        <svg class="sp-spark" viewBox="0 0 112 112" aria-hidden="true">
+          <path d="M92 14 L97 28 L111 33 L97 38 L92 52 L87 38 L73 33 L87 28 Z" fill="#efb44c"/>
+        </svg>
+      </div>
+      <p class="sp-word" aria-hidden="true"><span style="--i:0">S</span><span style="--i:1">m</span><span style="--i:2">a</span><span style="--i:3">r</span><span style="--i:4">t</span><span class="plate" style="--i:5">P</span><span class="plate" style="--i:6">l</span><span class="plate" style="--i:7">a</span><span class="plate" style="--i:8">t</span><span class="plate" style="--i:9">e</span></p>
+     </div>
+    </div>
+  </div>
+
   <div class="max-w-md mx-auto pb-12">
     <header class="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
-      <button id="btn-home" class="flex items-center gap-2 !min-h-0 py-2" aria-label="SmartPlate, go to the start">
+      <button id="btn-home" class="flex items-center gap-2 !min-h-0 py-1" aria-label="SmartPlate, go to the start">
         <img src="/assets/logo-mark.svg" alt="" class="w-8 h-8 flex-none">
         <span class="wordmark">Smart<span class="plate">Plate</span></span>
       </button>
-      <span class="text-sub text-sm text-right" id="header-note"></span>
+      <div class="flex items-center gap-2">
+        <button id="hdr-recipe" class="hdr-btn" aria-label="Add my recipe">
+          <i data-lucide="book-plus" class="icon"></i>
+        </button>
+        <button id="hdr-family" class="hdr-btn" aria-label="Family">
+          <i data-lucide="users" class="icon"></i>
+        </button>
+      </div>
     </header>
+    <p class="px-5 text-sub text-sm text-right -mt-2 mb-1" id="header-note"></p>
     <main id="screen" class="px-5 space-y-4"></main>
   </div>
   <!-- Bump ?v= whenever app.js changes, so phones don't keep a stale copy. -->
-  <script src="/app.js?v=12"></script>
+  <script src="/app.js?v=21"></script>
 </body>
 </html>

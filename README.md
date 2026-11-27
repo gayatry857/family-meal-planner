@@ -18,14 +18,13 @@ Planning a week of meals for a family is a daily chore, and harder when one pers
 - **Weekly menu** of full plates (breakfast, lunch, snack, dinner), built by Gemini AI and checked by a rule engine that enforces real food logic: sambar with idli, no rice at dinner, no fish with curd.
 - **Edit by hand:** tap any dish to see the recipe, swap it, choose another, or remove it.
 - **Grocery list** grouped by shop section, editable, and shareable as a checklist.
-- **Snacks, own recipes, PDF export**, and installable on a phone's home screen.
-- **Private by default:** outside the demo, the app sits behind a strong PIN with lockout and idle timeout.
+- **Own recipes, PDF export**, and installable on a phone's home screen.
 
 ## Try it
 
-No sign-up or install needed. Open the link, pick one of the four sample people (all invented), and tap **Plan the week**. The first load can take about 30 seconds while the server wakes up.
+No sign-up or install needed. Open the link, pick one of the three sample people (all invented), and tap **Plan the week**. The first load can take about 30 seconds while the server wakes up.
 
-The demo is for visitors, so it works differently from a private install: there is no PIN, your changes are wiped every night, and AI-built menus are limited each day (3 per visitor). After that, the app still builds menus with its own rule engine.
+There is no login. Visitor changes are wiped every night, and AI-built menus are limited each day (3 per visitor). After that, the app still builds menus with its own rule engine.
 
 ## How it was built
 
@@ -33,15 +32,15 @@ I directed Claude Code (Anthropic's AI coding assistant) to write the app, descr
 
 - **Python and FastAPI** backend, **SQLite** database, plain HTML/JavaScript with Tailwind for the interface
 - **Google Gemini API** for the weekly plan, with a retry and a rule-based fallback when the AI fails
-- **Microsoft Azure App Service** for hosting, with automatic deploys from GitHub
-- Security: server-side PIN gate, brute-force lockout, signed expiring session cookies, secrets kept in environment variables
+- **Microsoft Azure App Service** for hosting
+- Safeguards for the public demo: daily limits on AI use, a nightly reset, and secrets kept in environment variables
 
 ## Run it yourself
 
 ```
 pip install -r requirements.txt
-cp .env.example .env        # then add GEMINI_API_KEY and APP_PIN
+cp .env.example .env        # then add GEMINI_API_KEY
 python -m uvicorn app.main:app --port 8000
 ```
 
-To run the public demo version instead, set `DEMO_MODE=1` (see `.env.example`).
+On any publicly reachable copy, set `DEMO_MODE=1` to switch the limits on (see `.env.example`).

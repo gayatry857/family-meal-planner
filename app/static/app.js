@@ -3,6 +3,8 @@
 const screen = document.getElementById("screen");
 const headerNote = document.getElementById("header-note");
 document.getElementById("btn-home").addEventListener("click", () => showHome());
+document.getElementById("hdr-recipe").addEventListener("click", () => showAddRecipe());
+document.getElementById("hdr-family").addEventListener("click", () => showFamily());
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const MEAL_LABELS = { breakfast: "Breakfast", lunch: "Lunch", snack: "Snack", dinner: "Dinner" };
@@ -20,12 +22,6 @@ let planSelection = { member_ids: [], cuisine_mix: "Kerala / Indian", time_crunc
 
 async function api(path, options = {}) {
   const res = await fetch(path, { headers: { "Content-Type": "application/json" }, ...options });
-  if (res.status === 401) {
-    // The session lapsed. Send her to the PIN screen rather than showing an
-    // error she has no way to act on.
-    location.href = "/login";
-    throw new Error("Signed out");
-  }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
     throw new Error(body.detail || `Request failed (${res.status})`);
@@ -51,7 +47,7 @@ function render(html) {
 // "Family recipe" is a badge driven by the tag, never part of the dish name.
 function familyBadge(recipe) {
   return (recipe.tags || []).includes("family-recipe")
-    ? `<span class="text-sm bg-amber text-ink rounded-full px-2.5 py-0.5 align-middle whitespace-nowrap">Family recipe</span>`
+    ? `<span class="text-sm bg-amber text-paper-ink rounded-full px-3 py-1 align-middle whitespace-nowrap">Family recipe</span>`
     : "";
 }
 
@@ -63,16 +59,23 @@ function dietLabel(recipe) {
 
 // ---------- Home ----------
 
-// Who is using the app right now, remembered between visits.
+// Who is using the app right now, remembered between visits. The key is
+// deliberately not the old "mealplanner.user": a browser that ran the family
+// version still holds a real name under it, and this build must never show one.
+const USER_KEY = "smartplate.user";
+
+// Throw away whatever the family version left in this browser.
+try { localStorage.removeItem("mealplanner.user"); } catch (_) { /* private mode */ }
+
 function currentUser() {
-  try { return JSON.parse(localStorage.getItem("mealplanner.user") || "null"); }
+  try { return JSON.parse(localStorage.getItem(USER_KEY) || "null"); }
   catch (_) { return null; }
 }
 
 function setCurrentUser(member) {
-  if (member) localStorage.setItem("mealplanner.user", JSON.stringify(
+  if (member) localStorage.setItem(USER_KEY, JSON.stringify(
     { id: member.id, name: member.name }));
-  else localStorage.removeItem("mealplanner.user");
+  else localStorage.removeItem(USER_KEY);
 }
 
 // Greeting changes with the clock and the person.
@@ -99,9 +102,8 @@ async function showWhoAreYou({ force = false } = {}) {
       ${icon("chevron-right", "icon text-sub")}
     </button>`).join("");
   render(`
-    <h1 class="text-3xl font-medium pt-1">Who's cooking today?</h1>
-    <p class="text-sub text-lg pb-1">Tap your name</p>
-    <div class="space-y-3 pt-1">${chips}</div>`);
+    <h1 class="text-3xl font-medium pt-1 pb-2">Who's cooking today?</h1>
+    <div class="space-y-3">${chips}</div>`);
   document.querySelectorAll(".who-chip").forEach((el) =>
     el.addEventListener("click", () => {
       setCurrentUser(members.find((m) => m.id === Number(el.dataset.id)));
@@ -109,43 +111,66 @@ async function showWhoAreYou({ force = false } = {}) {
     }));
 }
 
-function showHome() {
+// The landing page. Today's food is the headline. Everything else is two
+// tiles and two icons in the header; no sub-labels, no date, no link list.
+async function showHome() {
   headerNote.textContent = "";
-  const item = (id, ic, label, sub) => `
-    <button id="${id}" class="card w-full flex items-center gap-4 p-4 text-left">
-      <span class="bg-mint text-accent rounded-2xl p-3">${icon(ic, "icon w-6 h-6")}</span>
-      <span class="flex-1">
-        <span class="block font-medium text-lg">${label}</span>
-        ${sub ? `<span class="block text-sub text-sm">${sub}</span>` : ""}
-      </span>
-      ${icon("chevron-right", "icon text-sub")}
-    </button>`;
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
+  const who = (currentUser() || {}).name;
+
   render(`
-    <h1 class="text-3xl font-medium pt-1">${greeting()}</h1>
-    <p class="text-sub text-lg pb-1">What's cooking?</p>
-    <div class="space-y-3 pt-2">
-      ${item("go-menu", "calendar-days", "This week's menu", "See and change the plan")}
-      ${item("go-plan", "sparkles", "Plan the week", "Make a fresh 7-day menu")}
-      ${item("go-grocery", "shopping-basket", "Grocery list", "What to buy this week")}
-      ${item("go-snacks", "apple", "Snacks", "Something between meals")}
-      ${item("go-add-recipe", "book-plus", "Add my recipe", "Save a family dish")}
-      ${item("go-family", "users", "Family", "Profiles and health notes")}
-    </div>
-    <p class="text-center pt-4 space-x-4">
-      <a href="#" id="go-switch" class="text-sub underline text-sm">Not ${esc((currentUser() || {}).name || "you")}?</a>
-      <a href="#" id="go-setup" class="text-sub underline text-sm">Setup check</a>
-    </p>`);
-  document.getElementById("go-switch").onclick = (e) => {
-    e.preventDefault();
-    showWhoAreYou({ force: true });
-  };
-  document.getElementById("go-menu").onclick = showMenu;
-  document.getElementById("go-snacks").onclick = showSnacks;
-  document.getElementById("go-plan").onclick = showPlanStep1;
+    <h1 class="text-3xl font-medium">${esc(greeting())}</h1>
+    <button id="go-switch" class="text-sub text-sm !min-h-0 py-1">Not ${esc(who || "you")}?</button>
+    <h2 class="font-display text-xl font-medium pt-4">Today's menu</h2>
+    <div id="today-slot"><div class="menu-card"><p class="meal">Loading</p></div></div>
+    <div class="grid grid-cols-2 gap-3 pt-2">
+      <button id="go-grocery" class="tile">
+        <span class="tile-rule"></span>
+        <span class="label">Grocery<br>list</span>
+        <span class="tile-go">&#8594;</span>
+      </button>
+      <button id="go-plan" class="tile tile-accent">
+        <span class="tile-rule"></span>
+        <span class="label">Plan the<br>week</span>
+        <span class="tile-go">&#8594;</span>
+      </button>
+    </div>`);
+
+  document.getElementById("go-switch").onclick = () => showWhoAreYou({ force: true });
   document.getElementById("go-grocery").onclick = showGrocery;
-  document.getElementById("go-add-recipe").onclick = showAddRecipe;
-  document.getElementById("go-family").onclick = showFamily;
-  document.getElementById("go-setup").onclick = (e) => { e.preventDefault(); showSetup(); };
+  document.getElementById("go-plan").onclick = showPlanStep1;
+
+  // Fetched after the greeting is painted, so the page never waits on it.
+  const slot = document.getElementById("today-slot");
+  let menu = null;
+  try { menu = await api("/api/menu/latest"); } catch (_) { /* offline */ }
+  slot.innerHTML = todayCard(menu, today);
+  const card = document.getElementById("today-card");
+  if (card) card.onclick = () => (menu && menu.menu_id ? showDay(today) : showPlanStep1());
+}
+
+// Today's three plates, or an invitation to plan if there is no week yet.
+function todayCard(menu, today) {
+  const day = menu && menu.menu_id && (menu.days || []).find((d) => d.day === today);
+  const rows = day
+    ? ["breakfast", "lunch", "dinner"].map((meal) => {
+        const dishes = (day.meals[meal] || []).map((c) => c.recipe.name);
+        if (!dishes.length) return "";
+        return `
+          <div class="row">
+            <p class="meal">${MEAL_LABELS[meal]}</p>
+            <p class="dishes">${esc(dishes.join(", "))}</p>
+          </div>`;
+      }).join("")
+    : "";
+  if (!rows) {
+    return `
+      <button id="today-card" class="menu-card">
+        <p class="dishes">No week planned yet</p>
+        <p class="meal pt-1">Tap to make one</p>
+      </button>`;
+  }
+  return `<button id="today-card" class="menu-card">${rows}</button>`;
 }
 
 // ---------- Family profiles ----------
@@ -156,13 +181,12 @@ async function showFamily() {
   const cards = members.map((m) => `
     <button data-id="${m.id}" class="member-card card w-full text-left p-4">
       <p class="font-medium text-lg">${esc(m.name)}
-        ${m.in_household ? '<span class="text-xs bg-accent-tint text-accent rounded-full px-2 py-0.5 ml-1 align-middle">lives at home</span>' : ""}</p>
+        ${m.in_household ? '<span class="text-sm bg-accent-tint text-accent rounded-full px-3 py-1 ml-1 align-middle">lives at home</span>' : ""}</p>
       <p class="text-sub">${esc(DIET_LABELS[m.diet] || m.diet)}${m.health_conditions ? " · " + esc(m.health_conditions) : ""}</p>
     </button>`).join("");
   render(`
     <h1 class="text-2xl font-medium">Family</h1>
-    <p class="text-sub">Tap a person to change their details</p>
-    <div class="space-y-3">${cards || '<p class="card text-sub p-4">No one added yet.</p>'}</div>
+    <div class="space-y-3">${cards || '<p class="card text-sub p-4">No one added yet</p>'}</div>
     <button id="add-member" class="btn btn-primary">${icon("plus")} Add family member</button>`);
   document.querySelectorAll(".member-card").forEach((el) =>
     el.addEventListener("click", () => showMemberForm(members.find((m) => m.id == el.dataset.id))));
@@ -180,7 +204,7 @@ function chipPicker(rootId, choices, selected, placeholder) {
   const state = new Set(selected);
   const draw = () => {
     const chips = [...state].map((v) => `
-      <button type="button" data-v="${esc(v)}" class="pick-chip flex items-center gap-1.5 bg-accent-tint text-accent rounded-full px-3 py-2 text-sm font-medium !min-h-0">
+      <button type="button" data-v="${esc(v)}" class="pick-chip flex items-center gap-2 bg-accent-tint text-accent rounded-full px-3 py-2 text-sm font-medium !min-h-0">
         ${esc(v)} ${icon("x", "w-3.5 h-3.5")}
       </button>`).join("");
     root.innerHTML = `
@@ -197,9 +221,9 @@ function chipPicker(rootId, choices, selected, placeholder) {
       if (!q) { sugg.innerHTML = ""; return; }
       const matches = choices.filter((c) => c.toLowerCase().includes(q) && !state.has(c)).slice(0, 6);
       const custom = matches.some((c) => c.toLowerCase() === q) ? "" : `
-        <button type="button" class="pick-add w-full text-left text-sub px-3 py-2.5 !min-h-0">Add "${esc(input.value.trim())}"</button>`;
+        <button type="button" class="pick-add w-full text-left text-sub px-3 py-3 !min-h-0">Add "${esc(input.value.trim())}"</button>`;
       sugg.innerHTML = `<div class="card divide-y divide-line/60">` + matches.map((c) => `
-        <button type="button" data-v="${esc(c)}" class="pick-opt w-full text-left px-3 py-2.5 !min-h-0">${esc(c)}</button>`).join("") + custom + `</div>`;
+        <button type="button" data-v="${esc(c)}" class="pick-opt w-full text-left px-3 py-3 !min-h-0">${esc(c)}</button>`).join("") + custom + `</div>`;
       sugg.querySelectorAll(".pick-opt").forEach((el) =>
         el.addEventListener("click", () => { state.add(el.dataset.v); draw(); }));
       const add = sugg.querySelector(".pick-add");
@@ -266,7 +290,7 @@ async function showMemberForm(member) {
   const drawConds = () => {
     condRoot.innerHTML = choices.conditions.map((c) => {
       const on = c === "None" ? selectedConds.size === 0 : selectedConds.has(c);
-      return `<button type="button" data-c="${esc(c)}" class="cond-chip rounded-xl border px-2 py-2.5 text-sm font-medium
+      return `<button type="button" data-c="${esc(c)}" class="cond-chip rounded-xl border px-3 py-3 text-sm font-medium
         ${on ? "border-accent bg-accent-tint text-accent" : "border-line bg-surface text-sub"}">${esc(c)}</button>`;
     }).join("");
     condRoot.querySelectorAll(".cond-chip").forEach((el) =>
@@ -328,7 +352,6 @@ async function showPlanStep1() {
     </button>`).join("");
   render(`
     <h1 class="text-2xl font-medium">Who's eating this week?</h1>
-    <p class="text-sub">Your household is already ticked. Tap to change</p>
     <div class="grid grid-cols-2 gap-3">${chips}</div>
     <button id="plan-next" class="btn btn-primary">Next ${icon("arrow-right")}</button>`);
   document.querySelectorAll(".person-chip").forEach((el) =>
@@ -403,54 +426,82 @@ async function showMenu() {
   renderMenu(menu);
 }
 
+// One day's meals as tappable rows. Shared by the week view and the single
+// day the landing page opens, so a dish behaves the same in both.
+function mealBlocks(d) {
+  return Object.keys(MEAL_LABELS).map((meal) => {
+    const components = d.meals[meal] || [];
+    if (!components.length) return "";
+    const rows = components.map((c) => `
+      <button class="meal-row w-full flex items-center gap-3 text-left py-3 !min-h-0"
+              data-item="${c.item_id}" data-day="${d.day}" data-meal="${meal}"
+              data-slot="${c.component}" data-recipe="${c.recipe.id}">
+        <span class="slot-name w-20 flex-none">${SLOT_LABELS[c.component] || c.component}</span>
+        <span class="flex-1">${esc(c.recipe.name)} ${familyBadge(c.recipe)}</span>
+        ${icon("chevron-right", "icon w-4 h-4 row-go")}
+      </button>`).join("");
+    return `
+      <div class="pt-4">
+        <p class="meal-name">${MEAL_LABELS[meal]}</p>
+        <div class="meal-rows">${rows}</div>
+      </div>`;
+  }).join("");
+}
+
+// Tapping a dish offers the recipe, a swap or a removal, wherever it is shown.
+function wireMealRows(menuId, back) {
+  document.querySelectorAll(".meal-row").forEach((el) =>
+    el.addEventListener("click", () => showDishActions(menuId, {
+      itemId: Number(el.dataset.item), recipeId: Number(el.dataset.recipe),
+      day: el.dataset.day, meal: el.dataset.meal, component: el.dataset.slot,
+    }, back)));
+  document.querySelectorAll(".add-dish").forEach((el) =>
+    el.addEventListener("click", () => showAddToMenu(menuId, el.dataset.day)));
+}
+
+// A single day, which is what the landing page opens. The week is one tap
+// further on, rather than the first thing she lands in.
+async function showDay(dayName) {
+  headerNote.textContent = "";
+  const menu = await api("/api/menu/latest");
+  if (!menu.menu_id) { showPlanStep1(); return; }
+  const day = (menu.days || []).find((d) => d.day === dayName);
+  if (!day) { renderMenu(menu); return; }
+  render(`
+    <h1 class="text-3xl font-medium pt-1">${esc(dayName)}</h1>
+    <div class="day-card is-today mt-2">${mealBlocks(day)}
+      <button class="add-dish w-full flex items-center gap-2 font-medium pt-4 !min-h-0"
+              data-day="${esc(dayName)}">${icon("plus", "icon w-4 h-4")} Add a dish</button>
+    </div>
+    <button id="day-week" class="btn btn-outline">${icon("calendar-days")} The whole week</button>`);
+  wireMealRows(menu.menu_id, () => showDay(dayName));
+  document.getElementById("day-week").onclick = showMenu;
+}
+
 function renderMenu(menu) {
   headerNote.textContent = "This week";
   const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
   const dayCards = menu.days.map((d) => {
-    const mealBlocks = Object.keys(MEAL_LABELS).map((meal) => {
-      const components = d.meals[meal] || [];
-      if (!components.length) return "";
-      const rows = components.map((c) => `
-        <button class="meal-row w-full flex items-center gap-3 text-left py-2.5 !min-h-0"
-                data-item="${c.item_id}" data-day="${d.day}" data-meal="${meal}"
-                data-slot="${c.component}" data-recipe="${c.recipe.id}">
-          <span class="text-sub text-sm w-20 flex-none">${SLOT_LABELS[c.component] || c.component}</span>
-          <span class="flex-1">${esc(c.recipe.name)} ${familyBadge(c.recipe)}</span>
-          ${icon("chevron-right", "icon w-4 h-4 text-line")}
-        </button>`).join("");
-      return `
-        <div class="pt-4">
-          <p class="font-display text-accent text-sm font-medium pb-1">${MEAL_LABELS[meal]}</p>
-          <div class="divide-y divide-line">${rows}</div>
-        </div>`;
-    }).join("");
     const isToday = d.day === today;
     return `
-      <div class="card p-4 ${isToday ? "border-accent" : ""}">
-        <div class="flex items-baseline justify-between border-b border-line pb-3">
-          <p class="font-display font-medium text-lg">${d.day}</p>
-          ${isToday ? '<span class="text-accent text-sm font-medium">Today</span>' : ""}
+      <div class="day-card ${isToday ? "is-today" : ""}">
+        <div class="day-rule flex items-baseline justify-between">
+          <p class="day-name">${d.day}</p>
+          ${isToday ? '<span class="day-today">Today</span>' : ""}
         </div>
-        ${mealBlocks}
-        <button class="add-dish w-full flex items-center gap-2 text-accent font-medium pt-4 !min-h-0"
+        ${mealBlocks(d)}
+        <button class="add-dish w-full flex items-center gap-2 font-medium pt-4 !min-h-0"
                 data-day="${d.day}">${icon("plus", "icon w-4 h-4")} Add a dish</button>
       </div>`;
   }).join("");
   render(`
     <h1 class="text-2xl font-medium">This week's menu</h1>
-    <p class="text-sub">Tap a dish to change or remove it</p>
     ${menu.source === "fallback" ? `<p class="notice text-sm">The AI helper could not be reached, so this is a simple automatic plan.${menu.ai_error ? `<span class="block text-sub pt-1">${esc(menu.ai_error)}</span>` : ""}</p>` : ""}
     <div class="space-y-3">${dayCards}</div>
     <button id="go-grocery" class="btn btn-primary">${icon("shopping-basket")} Grocery list</button>
     <button id="export-pdf" class="btn btn-outline">${icon("file-down")} Export as PDF</button>
     <button id="replan" class="btn btn-second">${icon("sparkles")} Plan again</button>`);
-  document.querySelectorAll(".meal-row").forEach((el) =>
-    el.addEventListener("click", () => showDishActions(menu.menu_id, {
-      itemId: Number(el.dataset.item), recipeId: Number(el.dataset.recipe),
-      day: el.dataset.day, meal: el.dataset.meal, component: el.dataset.slot,
-    })));
-  document.querySelectorAll(".add-dish").forEach((el) =>
-    el.addEventListener("click", () => showAddToMenu(menu.menu_id, el.dataset.day)));
+  wireMealRows(menu.menu_id);
   document.getElementById("go-grocery").onclick = showGrocery;
   document.getElementById("export-pdf").onclick = () => showPdfExport(menu);
   document.getElementById("replan").onclick = showPlanStep1;
@@ -458,8 +509,8 @@ function renderMenu(menu) {
 
 // ---------- One dish in the menu: recipe / swap / choose / remove ----------
 
-async function showDishActions(menuId, slot) {
-  headerNote.textContent = "This week";
+async function showDishActions(menuId, slot, back = showMenu) {
+  headerNote.textContent = "";
   const r = await api(`/api/recipes/${slot.recipeId}`);
   render(`
     <p class="text-sub">${slot.day} · ${MEAL_LABELS[slot.meal]} · ${SLOT_LABELS[slot.component] || slot.component}</p>
@@ -469,28 +520,28 @@ async function showDishActions(menuId, slot) {
     </div>
     ${r.youtube
       ? `<a href="${esc(r.youtube)}" target="_blank" class="block"><span class="btn btn-outline">${icon("play")} Watch on YouTube</span></a>`
-      : `<p class="text-sub text-center text-sm">No video for this one.</p>`}
+      : `<p class="text-sub text-center text-sm">No video for this one</p>`}
     <button id="d-swap" class="btn btn-primary">${icon("refresh-cw")} Swap it for me</button>
     <button id="d-choose" class="btn btn-outline">${icon("list")} Choose a dish myself</button>
     <button id="d-delete" class="btn btn-danger">${icon("trash-2")} Remove from this meal</button>
     <button id="d-back" class="btn btn-outline">${icon("arrow-left")} Back to the menu</button>
     <p id="d-status" class="text-sub text-center"></p>`);
   const status = document.getElementById("d-status");
-  document.getElementById("d-back").onclick = showMenu;
+  document.getElementById("d-back").onclick = back;
   document.getElementById("d-swap").onclick = async () => {
     status.textContent = "Finding another dish…";
     try {
       const res = await api(`/api/menu/${menuId}/items/${slot.itemId}/swap`, { method: "POST" });
-      showDishActions(menuId, { ...slot, recipeId: res.recipe.id });
+      showDishActions(menuId, { ...slot, recipeId: res.recipe.id }, back);
     } catch (err) {
       status.textContent = err.message;
     }
   };
-  document.getElementById("d-choose").onclick = () => showDishPicker(menuId, slot);
+  document.getElementById("d-choose").onclick = () => showDishPicker(menuId, slot, back);
   document.getElementById("d-delete").onclick = async () => {
     if (!confirm(`Remove ${r.name} from ${slot.day} ${MEAL_LABELS[slot.meal].toLowerCase()}?`)) return;
     await api(`/api/menu/${menuId}/items/${slot.itemId}`, { method: "DELETE" });
-    showMenu();
+    back();
   };
 }
 
@@ -542,15 +593,15 @@ function dishSearchBox(rootId, recipes, onPick, { onAddNew } = {}) {
   return () => picked;
 }
 
-async function showDishPicker(menuId, slot) {
-  headerNote.textContent = "This week";
+async function showDishPicker(menuId, slot, back = showMenu) {
+  headerNote.textContent = "";
   const all = await api("/api/recipes");
   // Same kind of dish first, but she can pick anything.
   const sameKind = all.filter((r) => r.component === slot.component);
   const rest = all.filter((r) => r.component !== slot.component);
   render(`
     <h1 class="text-2xl font-medium">Choose a dish</h1>
-    <p class="text-sub">${slot.day} · ${MEAL_LABELS[slot.meal]} · ${SLOT_LABELS[slot.component] || slot.component}. Start typing to find it.</p>
+    <p class="text-sub">${slot.day} · ${MEAL_LABELS[slot.meal]} · ${SLOT_LABELS[slot.component] || slot.component}</p>
     <div id="pick-box" class="space-y-2">
       <input class="input dish-input" placeholder="e.g. pac…" autocomplete="off">
       <div class="dish-results"></div>
@@ -562,18 +613,18 @@ async function showDishPicker(menuId, slot) {
     await api(`/api/menu/${menuId}/items/${slot.itemId}`, {
       method: "PUT", body: JSON.stringify({ recipe_id: recipe.id }),
     });
-    showMenu();
+    back();
   }, { onAddNew: (name) => showAddRecipe({
     prefillName: name,
     onSaved: async (recipe) => {
       await api(`/api/menu/${menuId}/items/${slot.itemId}`, {
         method: "PUT", body: JSON.stringify({ recipe_id: recipe.id }),
       });
-      showMenu();
+      back();
     },
-    onCancel: () => showDishPicker(menuId, slot),
+    onCancel: () => showDishPicker(menuId, slot, back),
   }) });
-  document.getElementById("pick-cancel").onclick = () => showDishActions(menuId, slot);
+  document.getElementById("pick-cancel").onclick = () => showDishActions(menuId, slot, back);
 }
 
 // ---------- Add a dish to any day/meal ----------
@@ -584,7 +635,6 @@ async function showAddToMenu(menuId, day) {
   const dayOptions = DAYS.map((d) => `<option ${d === day ? "selected" : ""}>${d}</option>`).join("");
   render(`
     <h1 class="text-2xl font-medium">Add a dish</h1>
-    <p class="text-sub">Start typing and pick from the list</p>
     <div class="card p-4 space-y-5">
       <div id="add-box">
         <label class="font-medium block pb-1.5">Dish</label>
@@ -722,7 +772,7 @@ async function showRecipe(recipeId, slot, backTo) {
     <div class="card p-5 space-y-4">
       <div class="flex items-start justify-between gap-2">
         <h1 class="text-2xl font-medium">${esc(r.name)} ${familyBadge(r)}</h1>
-        <button id="fav" class="!min-h-0 p-1 ${r.favorite ? "text-accent" : "text-line"}">${icon("heart", "w-7 h-7")}</button>
+        <button id="fav" class="!min-h-0 p-1 ${r.favorite ? "text-accent" : "text-faint"}">${icon("heart", "w-7 h-7")}</button>
       </div>
       <p class="text-sub flex items-center gap-2">
         ${r.store_bought ? `${icon("shopping-bag", "icon w-4 h-4")} Bought, not cooked`
@@ -750,7 +800,7 @@ async function showRecipe(recipeId, slot, backTo) {
     <button id="back" class="btn btn-outline">${icon("arrow-left")} Back</button>`);
   document.getElementById("fav").onclick = async (e) => {
     const res = await api(`/api/favorites/${r.id}`, { method: "POST" });
-    e.currentTarget.className = `!min-h-0 p-1 ${res.favorite ? "text-accent" : "text-line"}`;
+    e.currentTarget.className = `!min-h-0 p-1 ${res.favorite ? "text-accent" : "text-faint"}`;
   };
   document.getElementById("back").onclick = () => back();
 }
@@ -787,14 +837,14 @@ function renderGrocery(menuId, data) {
     const rows = data.items.filter((i) => i.category === c).map((i) => `
       <div class="g-row py-1">
         <div class="flex items-center gap-2">
-          <button data-id="${i.id}" class="g-item flex-1 flex items-center gap-3 text-left py-2.5 !min-h-0">
+          <button data-id="${i.id}" class="g-item flex-1 flex items-center gap-3 text-left py-3 !min-h-0">
             <span class="check w-7 h-7 rounded-lg border-2 flex-none flex items-center justify-center
               ${i.have_already ? "bg-accent border-accent text-white" : "border-line bg-surface"}">
               ${i.have_already ? icon("check", "w-4 h-4") : ""}</span>
             <span class="g-label flex-1 capitalize ${i.have_already ? "line-through text-sub" : ""}">${esc(i.ingredient_name)}</span>
           </button>
           ${(i.used_in || []).length
-            ? `<button data-id="${i.id}" class="g-why text-sub text-sm flex items-center gap-1 !min-h-0 px-2 py-2.5">
+            ? `<button data-id="${i.id}" class="g-why text-sub text-sm flex items-center gap-2 !min-h-0 px-2 py-3">
                  ${groceryQty(i)} ${icon("chevron-down", "icon w-4 h-4")}</button>`
             : `<span class="text-sub text-sm px-2">${groceryQty(i)}</span>`}
           <button data-id="${i.id}" class="g-edit text-sub !min-h-0 p-2" aria-label="Edit ${esc(i.ingredient_name)}">
@@ -802,19 +852,19 @@ function renderGrocery(menuId, data) {
         </div>
         <div id="why-${i.id}" class="hidden pl-10 pb-2">
           <p class="text-sub text-sm">Needed for:</p>
-          <ul class="text-sm">${(i.used_in || []).map((d) => `<li class="py-0.5">${esc(d)}</li>`).join("")}</ul>
+          <ul class="text-sm">${(i.used_in || []).map((d) => `<li class="py-1">${esc(d)}</li>`).join("")}</ul>
         </div>
       </div>`).join("");
     return `
       <div class="card p-4">
-        <p class="text-accent text-sm font-medium capitalize pb-1">${c}</p>
+        <p class="meal-name capitalize">${c}</p>
         <div class="divide-y divide-line/60">${rows}</div>
       </div>`;
   }).join("");
   render(`
     <h1 class="text-2xl font-medium">Grocery list</h1>
     <p class="text-sub">For ${data.people} ${data.people === 1 ? "person" : "people"} this week. Tick what you already have</p>
-    <button id="g-pdf" class="btn btn-primary">${icon("share-2")} Share as PDF</button>
+    <button id="g-pdf" class="btn btn-outline">${icon("share-2")} Share as PDF</button>
     <button id="g-add" class="btn btn-outline">${icon("plus")} Add an item</button>
     <p id="g-status" class="text-sub text-sm text-center"></p>
     <div class="space-y-3">${groups}</div>
@@ -921,77 +971,17 @@ function suggestionCards(suggestions, backTo) {
   };
 }
 
-// Snacks: pick healthy or unhealthy first, then see the whole list of each.
-function showSnacks() {
-  headerNote.textContent = "Snacks";
-  const choice = (id, ic, label, sub) => `
-    <button id="${id}" class="card w-full flex items-center gap-4 p-4 text-left">
-      <span class="bg-mint text-accent rounded-2xl p-3">${icon(ic, "icon w-6 h-6")}</span>
-      <span class="flex-1">
-        <span class="block font-medium text-lg">${label}</span>
-        <span class="block text-sub text-sm">${sub}</span>
-      </span>
-      ${icon("chevron-right", "icon text-sub")}
-    </button>`;
-  render(`
-    <h1 class="text-2xl font-medium">Snacks</h1>
-    <p class="text-sub">What are you in the mood for?</p>
-    <div class="space-y-3 pt-1">
-      ${choice("s-healthy", "apple", "Healthy snacks", "The everyday good ones")}
-      ${choice("s-unhealthy", "cookie", "Treats", "For when you fancy something")}
-    </div>`);
-  document.getElementById("s-healthy").onclick = () => showSnackList("healthy");
-  document.getElementById("s-unhealthy").onclick = () => showSnackList("unhealthy");
-}
-
-async function showSnackList(kind) {
-  headerNote.textContent = "Snacks";
-  const res = await api(`/api/snacks?kind=${kind}`);
-  const title = kind === "healthy" ? "Healthy snacks" : "Treats";
-  const cards = res.suggestions.map((s) => `
-    <div class="card p-4 flex items-center gap-3">
-      <button data-id="${s.recipe.id}" class="snack-open flex-1 text-left !min-h-0">
-        <p class="font-medium text-lg">${esc(s.recipe.name)} ${familyBadge(s.recipe)}</p>
-        <p class="text-sub text-sm">${esc(s.why)}</p>
-      </button>
-      ${s.recipe.source === "user"
-        ? `<button data-id="${s.recipe.id}" class="snack-edit text-sub !min-h-0 p-2"
-             aria-label="Edit ${esc(s.recipe.name)}">${icon("pencil", "icon w-4 h-4")}</button>`
-        : ""}
-    </div>`).join("");
-  render(`
-    <h1 class="text-2xl font-medium">${title}</h1>
-    <p class="text-sub">${res.suggestions.length} to choose from. Tap one to see it${
-      kind === "healthy" ? "" : " — treats are fine now and then"}.</p>
-    <div class="space-y-3">${cards || '<p class="card p-4 text-sub">Nothing here yet. Add your first one below.</p>'}</div>
-    <button id="add-snack" class="btn btn-primary">${icon("plus")} Add a snack</button>
-    <button id="snack-back" class="btn btn-outline">${icon("arrow-left")} Back</button>`);
-  document.querySelectorAll(".snack-open").forEach((el) =>
-    el.addEventListener("click", () =>
-      showRecipe(Number(el.dataset.id), null, () => showSnackList(kind))));
-  document.querySelectorAll(".snack-edit").forEach((el) =>
-    el.addEventListener("click", () => showEditRecipe(Number(el.dataset.id), kind)));
-  document.getElementById("snack-back").onclick = showSnacks;
-  document.getElementById("add-snack").onclick = () => showAddRecipe({
-    heading: "Add a snack",
-    prefillMeal: "snack",
-    prefillSnackType: kind,
-    onSaved: () => showSnackList(kind),
-    onCancel: () => showSnackList(kind),
-  });
-}
-
 // Edit or delete a dish she added herself.
-async function showEditRecipe(recipeId, snackKind) {
+async function showEditRecipe(recipeId) {
   const r = await api(`/api/recipes/${recipeId}`);
   showAddRecipe({
     heading: `Edit ${r.name}`,
     recipe: r,
     prefillName: r.name,
     prefillMeal: r.meal_type,
-    prefillSnackType: r.snack_type || snackKind,
-    onSaved: () => (snackKind ? showSnackList(snackKind) : showHome()),
-    onCancel: () => (snackKind ? showSnackList(snackKind) : showHome()),
+    prefillSnackType: r.snack_type,
+    onSaved: showHome,
+    onCancel: showHome,
   });
 }
 
@@ -1016,7 +1006,6 @@ function showAddRecipe(opts = {}) {
     </label>`;
   render(`
     <h1 class="text-2xl font-medium">${esc(opts.heading || "Add my recipe")}</h1>
-    <p class="text-sub">Just the name and main ingredients are enough — the rest is optional.</p>
     <div class="card p-4 space-y-5">
       <div>
         <label class="font-medium block pb-1.5">Dish name</label>
@@ -1137,36 +1126,69 @@ async function showSetup() {
         ${row("Server is running", true)}
         ${row("Recipe book loaded", h.database.recipes > 0, `${h.database.recipes} recipes ready`)}
         ${row("AI helper", h.ai.reachable && h.ai.model_ready, h.ai.detail || `${h.ai.model} is ready`)}
-      </div>
-      ${backupCard()}`);
+      </div>`);
   } catch (err) {
     render(`<div class="card p-5">${row("Server is running", false, "Could not reach the app.")}</div>`);
   }
 }
+// The opening animation. Its markup and timing live in index.html; this only
+// decides when it is over and takes it off the screen.
+function runSplash() {
+  const splash = document.getElementById("splash");
+  const lockup = splash && splash.querySelector(".splash-lockup");
+  const header = document.getElementById("btn-home");
+  if (!splash || !lockup || !header) return Promise.resolve();
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Everything lives on one server. This is the only way to get a copy of it off
-// that server, so it is worth keeping easy to find.
-function backupCard() {
-  return `
-    <div class="card p-5 space-y-3">
-      <p class="font-medium">Keep a copy of everything</p>
-      <p class="text-sub text-sm">Saves the recipes, the family profiles and the
-        saved menus into one file. Keep it somewhere other than this app, then
-        nothing is lost if the app ever goes away.</p>
-      <a href="/api/backup" download class="btn btn-outline w-full">
-        ${icon("download", "icon w-5 h-5")} Download a backup
-      </a>
-    </div>`;
+  // The plate sits centred on its own; the name is out of the layout. This
+  // slides the plate left by half of what the name adds, so the pair ends up
+  // centred together while the letters are being written in.
+  const slideLeft = () => {
+    const inner = lockup.querySelector(".lockup-inner");
+    const word = lockup.querySelector(".sp-word");
+    if (!inner || !word) return;
+    const gap = 18;
+    inner.style.setProperty("--slide", `${-(gap + word.getBoundingClientRect().width) / 2}px`);
+    inner.classList.add("slide");
+  };
+
+  // Fly the plate onto the plate in the header. Solved against the plate
+  // rather than the lockup's own box, because the inner box has already slid
+  // left by then: landed = origin + T + scale * (plate - origin).
+  const flyToHeader = () => {
+    const mark = lockup.querySelector(".mark-stack");
+    const target = header.querySelector("img");
+    if (!mark || !target) return;
+    const from = mark.getBoundingClientRect();
+    const to = target.getBoundingClientRect();
+    const origin = lockup.getBoundingClientRect();
+    if (!from.width || !to.width) return;
+    const scale = to.width / from.width;
+    lockup.style.setProperty("--fx",
+      `${to.left - origin.left - scale * (from.left - origin.left)}px`);
+    lockup.style.setProperty("--fy",
+      `${to.top - origin.top - scale * (from.top - origin.top)}px`);
+    lockup.style.setProperty("--fs", `${scale}`);
+    lockup.classList.add("fly");
+  };
+
+  return new Promise((resolve) => {
+    let over = false;
+    const finish = () => {
+      if (over) return;
+      over = true;
+      splash.classList.add("splash-out");
+      setTimeout(() => { splash.remove(); resolve(); }, 320);
+    };
+    // A tap skips straight to the end.
+    splash.addEventListener("click", finish);
+    if (still) { setTimeout(finish, 250); return; }
+    setTimeout(slideLeft, 1050);    // the name starts appearing at 1.15s
+    setTimeout(flyToHeader, 1850);
+    setTimeout(finish, 2450);
+  });
 }
 
-// Coming back to the app after a while, the session may have lapsed. Check as
-// soon as it is on screen, so she meets the PIN screen rather than a menu that
-// fails the moment she taps it.
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState !== "visible") return;
-  fetch("/api/session", { cache: "no-store" })
-    .then((res) => { if (res.status === 401) location.href = "/login"; })
-    .catch(() => {});  // offline: leave the screen alone
-});
-
-showWhoAreYou();
+// Straight to "Who's cooking today?" after the opening, every time, so the
+// greeting and anything she saves carry the right name.
+runSplash().then(() => showWhoAreYou({ force: true }));
