@@ -1,0 +1,11 @@
+<!-- Source for the PWA / home-screen icon. Rasterised to PNG by
+     tools/make_icons.py, which redraws these same shapes with Pillow. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SmartPlate">
+  <rect width="512" height="512" rx="115" fill="#4FA07E"/>
+  <circle cx="256" cy="266" r="170" fill="none" stroke="#FFFFFF" stroke-width="20"/>
+  <circle cx="256" cy="266" r="104" fill="none" stroke="#FFFFFF" stroke-width="13"/>
+  <path d="M256 322 L256 232" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+  <ellipse cx="220" cy="250" rx="36" ry="20" fill="#FFFFFF" transform="rotate(-35 220 250)"/>
+  <ellipse cx="292" cy="238" rx="36" ry="20" fill="#EAF7F0" transform="rotate(35 292 238)"/>
+  <path d="M392 96 L404 138 L446 150 L404 162 L392 204 L380 162 L338 150 L380 138 Z" fill="#F6C66B"/>
+</svg>

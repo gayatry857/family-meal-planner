@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPlate</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4FA07E">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SmartPlate">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* SmartPlate palette. Two shades carry the brand hues at text contrast:
+       --sage-ink and --coral-ink. The lighter --sage and --coral are for
+       fills, outlines and the mark, never for words. */
+    :root {
+      color-scheme: light;
+      --cream:       #fbf8f2;  /* page */
+      --mint:        #e7f2ec;  /* panels, selected chips, icon tiles */
+      --surface:     #ffffff;  /* cards */
+      --sage:        #4fa07e;  /* brand accent: fills, borders, the mark */
+      --sage-ink:    #367a5e;  /* the same green, dark enough to read */
+      --sage-dark:   #2e6950;  /* pressed */
+      --forest:      #2f4a3e;  /* headings and body */
+      --forest-soft: #5a7368;  /* secondary text */
+      --line:        #dce7e0;  /* hairlines */
+      --coral:       #e58b6a;  /* secondary accent: outlines */
+      --coral-ink:   #c96440;  /* coral at readable contrast */
+      --amber:       #efb44c;  /* small highlights, Family recipe */
+      --danger:      #a3453a;
+      --danger-line: #e8c9c2;
+      --radius-card: 12px;
+      --radius-ctrl: 10px;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: "var(--cream)",
+            mint: "var(--mint)",
+            surface: "var(--surface)",
+            sage: "var(--sage)",
+            forest: "var(--forest)",
+            coral: "var(--coral)",
+            amber: "var(--amber)",
+            line: "var(--line)",
+            // Kept under the old names so every screen keeps working:
+            // "accent" is now the readable green, "sub" the muted text.
+            accent: { DEFAULT: "var(--sage-ink)", tint: "var(--mint)" },
+            ink: "var(--forest)",
+            sub: "var(--forest-soft)",
+            danger: "var(--danger)",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Poppins", "Inter", "system-ui", "sans-serif"],
+          },
+          borderRadius: { xl: "12px", "2xl": "14px" },
+        },
+      },
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+  <style>
+    body { font-size: 17px; line-height: 1.5; }
+    h1, h2, .font-display { font-family: Poppins, Inter, system-ui, sans-serif; }
+    h1 { letter-spacing: -0.01em; }
+    button { min-height: 48px; }
+
+    .btn { display: flex; align-items: center; justify-content: center; gap: 10px;
+           width: 100%; border-radius: var(--radius-ctrl); font-weight: 500;
+           font-size: 1.08rem; padding: 0 18px; min-height: 56px;
+           transition: background-color .12s ease-out, border-color .12s ease-out; }
+    .btn-primary { background: var(--sage-ink); color: #fff; }
+    .btn-primary:active { background: var(--sage-dark); }
+    .btn-outline { background: var(--surface); border: 1px solid var(--line);
+                   color: var(--forest); }
+    .btn-outline:active { background: var(--mint); }
+    /* Secondary actions take the coral outline. */
+    .btn-second { background: var(--surface); border: 1px solid var(--coral);
+                  color: var(--coral-ink); }
+    .btn-second:active { background: #fdf1ec; }
+    .btn-danger { background: var(--surface); border: 1px solid var(--danger-line);
+                  color: var(--danger); }
+
+    .card { background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--radius-card); }
+    /* A quiet note inside a card: the recipe note, a tip. */
+    .note { background: var(--mint); border-radius: var(--radius-ctrl); padding: 12px 14px; }
+    /* Something went wrong but the app still works. */
+    .notice { background: var(--surface); border: 1px solid var(--line);
+              border-left: 4px solid var(--amber); border-radius: var(--radius-ctrl);
+              padding: 12px 14px; }
+
+    .input { width: 100%; border: 1px solid var(--line); border-radius: var(--radius-ctrl);
+             padding: 13px 15px; font-size: 1.05rem; background: var(--surface);
+             color: var(--forest); }
+    .input:focus { outline: 2px solid var(--sage-ink); outline-offset: -1px; }
+    .icon { width: 20px; height: 20px; flex: none; }
+
+    /* The wordmark, which is also the way home. */
+    .wordmark { font-family: Poppins, Inter, sans-serif; font-weight: 600;
+                font-size: 1.22rem; letter-spacing: -0.01em; color: var(--forest); }
+    .wordmark .plate { color: var(--coral-ink); }
+  </style>
+</head>
+<body class="bg-cream text-forest font-sans min-h-screen">
+  <div class="max-w-md mx-auto pb-12">
+    <header class="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
+      <button id="btn-home" class="flex items-center gap-2 !min-h-0 py-2" aria-label="SmartPlate, go to the start">
+        <img src="/assets/logo-mark.svg" alt="" class="w-8 h-8 flex-none">
+        <span class="wordmark">Smart<span class="plate">Plate</span></span>
+      </button>
+      <span class="text-sub text-sm text-right" id="header-note"></span>
+    </header>
+    <main id="screen" class="px-5 space-y-4"></main>
+  </div>
+  <!-- Bump ?v= whenever app.js changes, so phones don't keep a stale copy. -->
+  <script src="/app.js?v=12"></script>
+</body>
+</html>

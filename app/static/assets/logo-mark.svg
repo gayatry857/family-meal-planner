@@ -1,0 +1,11 @@
+<!-- SmartPlate mark: a plate seen from above, with a spark.
+     viewBox is 112 wide rather than 110 so the spark's right point (x=111)
+     is not clipped. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" role="img" aria-label="SmartPlate">
+  <circle cx="55" cy="55" r="52" fill="#E7F2EC" stroke="#4FA07E" stroke-width="5"/>
+  <circle cx="55" cy="55" r="34" fill="none" stroke="#4FA07E" stroke-width="3.5"/>
+  <path d="M55 72 L55 46" stroke="#3E8E6E" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="46" cy="52" rx="10" ry="5.5" fill="#5BB89A" transform="rotate(-35 46 52)"/>
+  <ellipse cx="64" cy="48" rx="10" ry="5.5" fill="#4FA07E" transform="rotate(35 64 48)"/>
+  <path d="M92 14 L97 28 L111 33 L97 38 L92 52 L87 38 L73 33 L87 28 Z" fill="#EFB44C"/>
+</svg>

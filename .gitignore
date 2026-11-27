@@ -1,0 +1,28 @@
+# --- Secrets: never commit ---
+.env
+.env.local
+.env.*.local
+# .env.example is intentionally NOT ignored; it is the safe placeholder.
+
+# --- Runtime database (rebuilt from seed on first run) ---
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Local logs and scratch output ---
+*.log

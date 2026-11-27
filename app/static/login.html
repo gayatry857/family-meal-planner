@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPlate</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
+  <meta name="theme-color" content="#4FA07E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Same palette as index.html. --sage-ink and --coral-ink are the shades
+       dark enough to carry words; --sage and --coral stay on the mark. */
+    :root {
+      color-scheme: light;
+      --cream: #fbf8f2; --mint: #e7f2ec; --surface: #ffffff;
+      --sage-ink: #367a5e; --sage-dark: #2e6950;
+      --forest: #2f4a3e; --forest-soft: #5a7368; --line: #dce7e0;
+      --coral-ink: #c96440; --danger: #a3453a; --danger-line: #e8c9c2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; background: var(--cream); color: var(--forest);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px; line-height: 1.5; padding: 24px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 12px; padding: 28px 24px;
+      width: 100%; max-width: 380px; text-align: center;
+    }
+    .mark { width: 72px; height: 72px; margin: 0 auto 16px; display: block; }
+    h1 {
+      font-family: Poppins, Inter, sans-serif; font-weight: 600;
+      font-size: 1.6rem; letter-spacing: -0.01em; margin: 0 0 4px;
+    }
+    h1 .plate { color: var(--coral-ink); }
+    p.sub { color: var(--forest-soft); margin: 0 0 24px; font-size: 1rem; }
+    input {
+      width: 100%; border: 1px solid var(--line); border-radius: 10px;
+      padding: 16px; font-size: 1.6rem; text-align: center;
+      letter-spacing: 0.4em; background: var(--surface); color: var(--forest);
+      font-family: inherit;
+    }
+    input::placeholder { letter-spacing: 0.1em; color: var(--forest-soft); }
+    input:focus { outline: 2px solid var(--sage-ink); outline-offset: -1px; }
+    button {
+      width: 100%; min-height: 56px; margin-top: 14px; border: 0;
+      border-radius: 10px; background: var(--sage-ink); color: #fff;
+      font-size: 1.08rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: background-color .12s ease-out;
+    }
+    button:active { background: var(--sage-dark); }
+    .error {
+      margin-top: 16px; color: var(--danger); background: var(--surface);
+      border: 1px solid var(--danger-line); border-radius: 10px;
+      padding: 12px; font-size: 0.98rem;
+    }
+    .error:empty { display: none; }
+  </style>
+</head>
+<body>
+  <form class="card" method="POST" action="/login">
+    <img src="/assets/logo-mark.svg" alt="" class="mark">
+    <h1>Smart<span class="plate">Plate</span></h1>
+    <p class="sub">AI meal planning, made simple</p>
+    <input id="pin" name="pin" type="password" inputmode="numeric"
+           autocomplete="current-password" placeholder="Family PIN"
+           aria-label="Family PIN" autofocus required>
+    <button type="submit">Open SmartPlate</button>
+    <p class="error" id="error">__ERROR__</p>
+  </form>
+</body>
+</html>

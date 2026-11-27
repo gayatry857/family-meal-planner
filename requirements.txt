@@ -1,0 +1,17 @@
+# Web framework and server
+fastapi
+uvicorn[standard]
+gunicorn              # production server on Azure (Linux only)
+uvicorn-worker        # ASGI worker for gunicorn (uvicorn.workers is deprecated)
+python-multipart      # lets FastAPI read the login form
+
+# Config and secrets
+python-dotenv
+
+# AI
+google-genai
+ollama                # only used when AI_PROVIDER=ollama
+
+# Features
+fpdf2                 # menu and grocery PDF export
+zeroconf              # mealplanner.local on the home network (skipped when hosted)

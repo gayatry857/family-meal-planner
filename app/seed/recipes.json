@@ -1,0 +1,2255 @@
+[
+  {
+    "name": "Green Gram Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "green gram (moong)",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Boil the green gram (moong) until soft but not mushy and drain.",
+      "Crush grated coconut with green chili and a little turmeric.",
+      "Splutter mustard seeds and curry leaves, add the cooked gram and coconut mix, and stir-fry a few minutes."
+    ],
+    "tags": [
+      "high-fiber",
+      "high-protein",
+      "iron-rich",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Green+Gram+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Beetroot Pachadi",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "pachadi",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "beetroot",
+      "curd (yogurt)",
+      "grated coconut",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Cook grated beetroot until soft.",
+      "Grind grated coconut with green chili and mustard, mix in the beetroot, then fold in whisked curd (yogurt).",
+      "Temper with mustard seeds and curry leaves."
+    ],
+    "tags": [
+      "kid-friendly",
+      "side",
+      "light"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Beetroot+Pachadi+recipe+kerala"
+  },
+  {
+    "name": "Sambar",
+    "cuisine": "south-indian",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 40,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "toor dal (pigeon pea)",
+      "drumstick (muringakka)",
+      "carrot",
+      "beans",
+      "pumpkin (mathanga)",
+      "tomato",
+      "tamarind",
+      "sambar powder"
+    ],
+    "steps": [
+      "Pressure-cook the toor dal (pigeon pea) until soft.",
+      "Simmer mixed vegetables and drumstick (muringakka) with tamarind and sambar powder, then add the mashed dal.",
+      "Finish with a mustard and curry-leaf tempering."
+    ],
+    "tags": [
+      "high-fiber",
+      "high-protein",
+      "staple",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Sambar+recipe+kerala"
+  },
+  {
+    "name": "Moru Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "buttermilk (moru)",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "turmeric"
+    ],
+    "steps": [
+      "Grind grated coconut with green chili, cumin and turmeric, and whisk into the buttermilk (moru).",
+      "Heat gently on low without boiling.",
+      "Temper with mustard seeds, fenugreek and curry leaves."
+    ],
+    "tags": [
+      "light",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Moru+Curry+recipe+kerala"
+  },
+  {
+    "name": "Avial",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "drumstick (muringakka)",
+      "carrot",
+      "beans",
+      "raw banana (pacha kaya)",
+      "yam (chena)",
+      "grated coconut",
+      "raw mango (manga)",
+      "curry leaves",
+      "coconut oil"
+    ],
+    "steps": [
+      "Cook mixed vegetables with turmeric until just tender.",
+      "Add coarsely ground grated coconut with cumin and green chili, and raw mango (manga) for tang.",
+      "Finish with raw coconut oil and curry leaves off the heat."
+    ],
+    "tags": [
+      "high-fiber",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Avial+recipe+kerala"
+  },
+  {
+    "name": "Parippu",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "green gram (moong)",
+      "grated coconut",
+      "green chili",
+      "turmeric",
+      "curry leaves"
+    ],
+    "steps": [
+      "Pressure-cook the dal with turmeric until soft and mash lightly.",
+      "Add a ground paste of grated coconut, cumin and green chili and simmer.",
+      "Temper with mustard seeds, dried red chili and curry leaves in ghee."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Parippu+recipe+kerala"
+  },
+  {
+    "name": "Vendakka Mezhukkupuratti",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "okra (vendakka)",
+      "shallots",
+      "red chili",
+      "curry leaves",
+      "coconut oil"
+    ],
+    "steps": [
+      "Chop okra (vendakka) and sauté in coconut oil until the stickiness goes.",
+      "Add sliced shallots, crushed red chili and turmeric.",
+      "Stir-fry on medium until dry and lightly crisp, finishing with curry leaves."
+    ],
+    "tags": [
+      "side",
+      "quick",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Vendakka+Mezhukkupuratti+recipe+kerala"
+  },
+  {
+    "name": "Puttu",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice flour",
+      "grated coconut",
+      "salt"
+    ],
+    "steps": [
+      "Moisten rice flour with salted water to a crumbly texture.",
+      "Layer with grated coconut in a puttu mould.",
+      "Steam until cooked through and fluffy."
+    ],
+    "tags": [
+      "staple",
+      "high-fiber",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Puttu+recipe+kerala"
+  },
+  {
+    "name": "Idiyappam",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice flour",
+      "grated coconut",
+      "salt"
+    ],
+    "steps": [
+      "Knead rice flour with hot salted water into a soft dough.",
+      "Press through an idiyappam mould onto idli plates and sprinkle grated coconut.",
+      "Steam until set and soft."
+    ],
+    "tags": [
+      "staple",
+      "light"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Idiyappam+recipe+kerala"
+  },
+  {
+    "name": "Egg Roast",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_protein",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "eggetarian",
+      "non-veg"
+    ],
+    "ingredients": [
+      "eggs",
+      "onion",
+      "tomato",
+      "ginger",
+      "green chili"
+    ],
+    "steps": [
+      "Boil and halve the eggs.",
+      "Sauté sliced onion with ginger, green chili and tomato into a thick masala with chili powder and garam masala.",
+      "Coat the eggs in the masala and finish with curry leaves."
+    ],
+    "tags": [
+      "high-protein",
+      "kid-friendly",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Egg+Roast+recipe+kerala"
+  },
+  {
+    "name": "Dosa",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 15,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "urad dal",
+      "salt"
+    ],
+    "steps": [
+      "Use fermented rice-and-urad-dal batter at pouring consistency.",
+      "Spread thin on a hot greased griddle.",
+      "Cook until golden and crisp, then fold and serve."
+    ],
+    "tags": [
+      "staple",
+      "kid-friendly",
+      "quick"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Dosa+recipe+kerala",
+    "note": "Batter is made from scratch and ferments the day before - not a same-day quick dish."
+  },
+  {
+    "name": "Idli",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 15,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "urad dal",
+      "salt"
+    ],
+    "steps": [
+      "Pour fermented idli batter into greased idli moulds.",
+      "Steam for about 10 minutes until spongy.",
+      "Cool slightly and unmould."
+    ],
+    "tags": [
+      "light",
+      "low-oil",
+      "kid-friendly",
+      "staple"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Idli+recipe+kerala",
+    "note": "Batter is made from scratch and ferments the day before - not a same-day quick dish."
+  },
+  {
+    "name": "Upma",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "semolina (rava)",
+      "onion",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Dry-roast the semolina (rava) until fragrant.",
+      "Splutter mustard seeds, sauté onion, green chili and curry leaves, then add hot water.",
+      "Stir in the rava and cook until it thickens and fluffs up."
+    ],
+    "tags": [
+      "quick",
+      "tiffin-friendly",
+      "light"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Upma+recipe+kerala"
+  },
+  {
+    "name": "Oats Upma",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "oats",
+      "onion",
+      "carrot",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Lightly roast the oats.",
+      "Splutter mustard seeds, sauté onion, carrot, green chili and curry leaves.",
+      "Add a little water and the oats, and cook briefly until soft and dry."
+    ],
+    "tags": [
+      "diabetic-friendly",
+      "high-fiber",
+      "quick",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Oats+Upma+recipe+kerala"
+  },
+  {
+    "name": "Fish Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "fish",
+      "kudampuli (kokum)",
+      "grated coconut",
+      "chili powder",
+      "curry leaves"
+    ],
+    "steps": [
+      "Soak kudampuli (kokum) in warm water.",
+      "Cook a masala of chili powder, turmeric and ground coconut with shallots and curry leaves.",
+      "Add the fish and kudampuli water and simmer gently until done."
+    ],
+    "tags": [
+      "high-protein",
+      "staple",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Fish+Curry+recipe+kerala"
+  },
+  {
+    "name": "Appam",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "grated coconut",
+      "yeast",
+      "salt"
+    ],
+    "steps": [
+      "Use fermented rice-and-coconut batter with a little sugar and yeast.",
+      "Pour into a hot appam pan and swirl to form thin lacy edges.",
+      "Cover and cook until the center is soft and the rim is crisp."
+    ],
+    "tags": [
+      "staple",
+      "light",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Appam+recipe+kerala",
+    "note": "Batter is made from scratch and ferments the day before - not a same-day quick dish."
+  },
+  {
+    "name": "Mushroom Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "mushroom",
+      "onion",
+      "tomato",
+      "grated coconut",
+      "garam masala"
+    ],
+    "steps": [
+      "Sauté onion and tomato with ginger-garlic and spices.",
+      "Add roasted ground coconut or coconut milk and the mushrooms.",
+      "Simmer until the mushrooms are cooked and the gravy thickens."
+    ],
+    "tags": [
+      "high-protein",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Mushroom+Curry+recipe+kerala"
+  },
+  {
+    "name": "Cabbage Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "cabbage",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Splutter mustard seeds and curry leaves.",
+      "Add finely shredded cabbage with turmeric and a coconut-green chili mix.",
+      "Cover and cook briefly until just tender, keeping it dry."
+    ],
+    "tags": [
+      "high-fiber",
+      "side",
+      "quick",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Cabbage+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Beans Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "beans",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Splutter mustard seeds and curry leaves.",
+      "Add finely chopped beans with turmeric and crushed coconut with green chili.",
+      "Cover and cook until tender but still bright."
+    ],
+    "tags": [
+      "high-fiber",
+      "side",
+      "quick",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Beans+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Carrot Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "carrot",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Splutter mustard seeds and curry leaves.",
+      "Add grated carrot with turmeric and a coconut-green chili mix.",
+      "Cook a few minutes until just soft, keeping it dry."
+    ],
+    "tags": [
+      "kid-friendly",
+      "high-fiber",
+      "side",
+      "quick"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Carrot+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Pumpkin Erisheri",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 35,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "pumpkin (mathanga)",
+      "red cowpea (vanpayar)",
+      "grated coconut",
+      "cumin",
+      "curry leaves"
+    ],
+    "steps": [
+      "Cook the red cowpea (vanpayar) until soft.",
+      "Cook pumpkin (mathanga) with turmeric and mash lightly, then add ground coconut with cumin.",
+      "Finish with roasted coconut and curry-leaf tempering in coconut oil."
+    ],
+    "tags": [
+      "high-fiber",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Pumpkin+Erisheri+recipe+kerala"
+  },
+  {
+    "name": "Rasam",
+    "cuisine": "south-indian",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "tomato",
+      "tamarind",
+      "rasam powder",
+      "garlic",
+      "curry leaves"
+    ],
+    "steps": [
+      "Simmer tamarind water with crushed tomato, rasam powder and turmeric.",
+      "Add crushed garlic and let it froth without boiling hard.",
+      "Finish with a mustard, cumin and curry-leaf tempering."
+    ],
+    "tags": [
+      "light",
+      "low-oil",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Rasam+recipe+kerala"
+  },
+  {
+    "name": "Mango Drumstick Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "raw mango (manga)",
+      "drumstick (muringakka)",
+      "grated coconut",
+      "green chili",
+      "turmeric"
+    ],
+    "steps": [
+      "Cook drumstick (muringakka) and raw mango (manga) pieces with turmeric and green chili.",
+      "Add a ground paste of grated coconut and cumin and simmer.",
+      "Temper with mustard seeds, dried red chili and curry leaves."
+    ],
+    "tags": [
+      "seasonal",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Mango+Drumstick+Curry+recipe+kerala"
+  },
+  {
+    "name": "Chicken Curry",
+    "cuisine": "kerala",
+    "meal_type": "dinner",
+    "component": "curry",
+    "prep_minutes": 40,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "chicken",
+      "onion",
+      "tomato",
+      "ginger garlic",
+      "garam masala"
+    ],
+    "steps": [
+      "Sauté onion with ginger garlic until golden, then add tomato and spices.",
+      "Add the chicken and coat well in the masala.",
+      "Add water, cover, and simmer until tender, finishing with curry leaves."
+    ],
+    "tags": [
+      "high-protein",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chicken+Curry+recipe+kerala"
+  },
+  {
+    "name": "Vendakka Mappas",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "okra (vendakka)",
+      "coconut milk",
+      "onion",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Lightly fry okra (vendakka) to reduce stickiness.",
+      "Sauté onion, green chili and spices, add thin coconut milk and the okra, and simmer.",
+      "Finish with thick coconut milk and curry leaves without boiling hard."
+    ],
+    "tags": [
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Vendakka+Mappas+recipe+kerala"
+  },
+  {
+    "name": "Fish Fry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "protein_fry",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "fish",
+      "chili powder",
+      "turmeric",
+      "ginger garlic",
+      "curry leaves"
+    ],
+    "steps": [
+      "Marinate fish in chili powder, turmeric, ginger garlic and salt.",
+      "Rest for 15 minutes.",
+      "Shallow-fry on both sides until crisp, tossing in curry leaves at the end."
+    ],
+    "tags": [
+      "high-protein",
+      "staple",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Fish+Fry+recipe+kerala"
+  },
+  {
+    "name": "Grilled Chicken",
+    "cuisine": "continental",
+    "meal_type": "dinner",
+    "component": "protein_fry",
+    "prep_minutes": 35,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "chicken",
+      "olive oil",
+      "pepper",
+      "lemon",
+      "garlic"
+    ],
+    "steps": [
+      "Marinate chicken in olive oil, lemon, garlic, pepper and herbs.",
+      "Rest for at least 20 minutes.",
+      "Grill or pan-grill until cooked through with a charred exterior."
+    ],
+    "tags": [
+      "high-protein",
+      "friday-dinner",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Grilled+Chicken+recipe+kerala"
+  },
+  {
+    "name": "Smoothie",
+    "cuisine": "continental",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 10,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "banana",
+      "milk",
+      "oats",
+      "dates",
+      "chia seeds",
+      "flax seeds",
+      "almond",
+      "cinnamon"
+    ],
+    "steps": [
+      "Blend banana, milk, oats and pitted dates until smooth.",
+      "Add chia seeds, flax seeds, almonds and a pinch of cinnamon and blend again.",
+      "Serve chilled, thinning with a little more milk if needed."
+    ],
+    "tags": [
+      "no-cook",
+      "kid-friendly",
+      "quick",
+      "light"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Smoothie+recipe+kerala"
+  },
+  {
+    "name": "Chapati Rolls with Healthy Filling",
+    "cuisine": "indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "chapati",
+      "carrot",
+      "capsicum",
+      "onion",
+      "paneer",
+      "lettuce"
+    ],
+    "steps": [
+      "Sauté mixed vegetables, paneer and onion with light spices.",
+      "Lay the filling along a warm chapati with some lettuce.",
+      "Roll up tightly and slice, or wrap for a tiffin."
+    ],
+    "tags": [
+      "tiffin-friendly",
+      "high-fiber",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chapati+Rolls+with+Healthy+Filling+recipe+kerala"
+  },
+  {
+    "name": "Boiled Channa",
+    "cuisine": "indian",
+    "meal_type": "snack",
+    "component": "snack",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "chickpeas (channa)",
+      "onion",
+      "tomato",
+      "green chili",
+      "lemon",
+      "coriander"
+    ],
+    "steps": [
+      "Boil soaked chickpeas till soft.",
+      "Toss with chopped onion, tomato, chili, coriander and lemon."
+    ],
+    "tags": [
+      "healthy",
+      "high-protein",
+      "high-fiber",
+      "snack"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=boiled+channa+chaat+recipe",
+    "snack_type": "healthy",
+    "frequency": "weekly"
+  },
+  {
+    "name": "Methi Paratha",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "whole wheat flour",
+      "fenugreek leaves (methi)",
+      "green chili",
+      "cumin",
+      "oil"
+    ],
+    "steps": [
+      "Knead whole wheat flour with chopped fenugreek leaves (methi), green chili and spices into a soft dough.",
+      "Roll out into parathas.",
+      "Cook on a tawa with a little oil until browned on both sides."
+    ],
+    "tags": [
+      "iron-rich",
+      "high-fiber",
+      "tiffin-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Methi+Paratha+recipe+kerala"
+  },
+  {
+    "name": "Drumstick Leaf Paratha",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "whole wheat flour",
+      "drumstick leaves (muringa ila)",
+      "green chili",
+      "cumin",
+      "oil"
+    ],
+    "steps": [
+      "Knead whole wheat flour with chopped drumstick leaves (muringa ila), green chili and spices into a soft dough.",
+      "Roll out into parathas.",
+      "Cook on a tawa with a little oil until browned on both sides."
+    ],
+    "tags": [
+      "iron-rich",
+      "high-fiber",
+      "tiffin-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Drumstick+Leaf+Paratha+recipe+kerala"
+  },
+  {
+    "name": "Multigrain Dosa",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 15,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "multigrain flour",
+      "urad dal",
+      "salt"
+    ],
+    "steps": [
+      "Use fermented multigrain-and-urad-dal batter at pouring consistency.",
+      "Spread thin on a hot greased griddle.",
+      "Cook until crisp and golden."
+    ],
+    "tags": [
+      "diabetic-friendly",
+      "high-fiber",
+      "kid-friendly",
+      "quick"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Multigrain+Dosa+recipe+kerala",
+    "note": "Batter is made from scratch and ferments the day before - not a same-day quick dish."
+  },
+  {
+    "name": "Tomato Chutney",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_side",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "tomato",
+      "shallots",
+      "red chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Sauté shallots, red chili and tomato until soft.",
+      "Cool and grind to a coarse chutney with salt.",
+      "Temper with mustard seeds and curry leaves."
+    ],
+    "tags": [
+      "side",
+      "quick",
+      "low-oil"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Tomato+Chutney+recipe+kerala"
+  },
+  {
+    "name": "Boiled Moong Dal",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "green gram (moong)",
+      "green chili",
+      "turmeric",
+      "curry leaves",
+      "coconut oil"
+    ],
+    "steps": [
+      "Boil the green gram (moong) with turmeric until soft.",
+      "Season with green chili, salt and a drizzle of coconut oil.",
+      "Temper with mustard seeds and curry leaves."
+    ],
+    "tags": [
+      "family-recipe",
+      "high-protein",
+      "high-fiber",
+      "light"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Boiled+Moong+Dal+recipe+kerala",
+    "also_components": [
+      "breakfast_side",
+      "breakfast_protein"
+    ]
+  },
+  {
+    "name": "Puri",
+    "cuisine": "indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "day_preference": "weekend",
+    "ingredients": [
+      "whole wheat flour",
+      "oil",
+      "salt"
+    ],
+    "steps": [
+      "Knead whole wheat flour with salt and water into a firm dough.",
+      "Roll into small discs.",
+      "Deep-fry until they puff up and turn golden."
+    ],
+    "tags": [
+      "kid-friendly",
+      "treat"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Puri+recipe+kerala"
+  },
+  {
+    "name": "Plain Rice",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "rice_staple",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "water"
+    ],
+    "steps": [
+      "Rinse the rice.",
+      "Boil in plenty of water until soft, then drain any excess."
+    ],
+    "tags": [
+      "staple"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Plain+Rice+recipe+kerala"
+  },
+  {
+    "name": "Chapati",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "whole wheat flour",
+      "oil",
+      "salt"
+    ],
+    "steps": [
+      "Knead whole wheat flour with a little oil, salt and water into a soft dough.",
+      "Roll into thin rounds.",
+      "Cook on a hot tawa until brown spots appear on both sides."
+    ],
+    "tags": [
+      "staple",
+      "high-fiber"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chapati+recipe+kerala"
+  },
+  {
+    "name": "Wheat Bread",
+    "cuisine": "continental",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 0,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "wheat bread"
+    ],
+    "steps": [
+      "Serve slices of whole wheat bread as-is or lightly toasted.",
+      "Pair with a curry or side."
+    ],
+    "tags": [
+      "staple"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Wheat+Bread+recipe+kerala",
+    "store_bought": true
+  },
+  {
+    "name": "Mixed Salad",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "component": "salad",
+    "prep_minutes": 10,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "cucumber",
+      "carrot",
+      "lettuce",
+      "spinach leaves",
+      "snake gourd (padavalanga)",
+      "cherry tomatoes",
+      "lemon"
+    ],
+    "steps": [
+      "Wash and chop whichever raw vegetables are in the house.",
+      "Toss together with a squeeze of lemon, salt and pepper."
+    ],
+    "tags": [
+      "no-cook",
+      "light",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=mixed+salad+recipe",
+    "note": "A rotating raw mix - the combination varies each time."
+  },
+  {
+    "name": "Boiled Eggs",
+    "cuisine": "indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_protein",
+    "prep_minutes": 12,
+    "is_quick": true,
+    "diet": [
+      "eggetarian",
+      "non-veg"
+    ],
+    "ingredients": [
+      "eggs",
+      "salt",
+      "pepper"
+    ],
+    "steps": [
+      "Boil the eggs for about 8-10 minutes.",
+      "Cool, peel and halve.",
+      "Sprinkle with salt and pepper to serve."
+    ],
+    "tags": [
+      "high-protein",
+      "quick",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Boiled+Eggs+recipe+kerala",
+    "also_components": [
+      "breakfast_side"
+    ]
+  },
+  {
+    "name": "Egg Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "eggetarian",
+      "non-veg"
+    ],
+    "ingredients": [
+      "eggs",
+      "onion",
+      "tomato",
+      "coconut milk",
+      "garam masala"
+    ],
+    "steps": [
+      "Boil the eggs and set aside.",
+      "Sauté onion, ginger-garlic and tomato with spices, then add coconut milk and simmer.",
+      "Add the halved eggs and finish with curry leaves."
+    ],
+    "tags": [
+      "high-protein",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Egg+Curry+recipe+kerala"
+  },
+  {
+    "name": "Kadala Curry",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "black chickpeas (kadala)",
+      "grated coconut",
+      "onion",
+      "coconut oil",
+      "curry leaves"
+    ],
+    "steps": [
+      "Pressure-cook the soaked black chickpeas (kadala) until soft.",
+      "Add a roasted coconut masala with onion and spices, and simmer.",
+      "Temper with mustard seeds and curry leaves in coconut oil."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "staple"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Kadala+Curry+recipe+kerala"
+  },
+  {
+    "name": "Prawn Curry",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "prawns",
+      "kudampuli (kokum)",
+      "grated coconut",
+      "chili powder",
+      "curry leaves"
+    ],
+    "steps": [
+      "Clean the prawns and soak kudampuli (kokum) in warm water.",
+      "Cook a coconut-chili masala with shallots and curry leaves.",
+      "Add the prawns and kudampuli water and simmer just until done."
+    ],
+    "tags": [
+      "high-protein",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Prawn+Curry+recipe+kerala"
+  },
+  {
+    "name": "Vegetable Stew",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "potato",
+      "carrot",
+      "beans",
+      "green peas",
+      "coconut milk",
+      "onion",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Simmer mixed vegetables with onion, green chili and whole spices in thin coconut milk.",
+      "Once tender, add thick coconut milk and warm through without boiling.",
+      "Finish with curry leaves and a little coconut oil."
+    ],
+    "tags": [
+      "light",
+      "kid-friendly",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Vegetable+Stew+recipe+kerala"
+  },
+  {
+    "name": "Puli Inji",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "pachadi",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "ginger (inji)",
+      "tamarind",
+      "green chili",
+      "jaggery",
+      "curry leaves"
+    ],
+    "steps": [
+      "Fry finely chopped ginger (inji) and green chili until fragrant.",
+      "Add tamarind extract and jaggery and simmer to a thick relish.",
+      "Temper with mustard seeds and curry leaves."
+    ],
+    "tags": [
+      "side",
+      "seasonal"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Puli+Inji+recipe+kerala"
+  },
+  {
+    "name": "Chicken Roast",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 40,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "ingredients": [
+      "chicken",
+      "onion",
+      "tomato",
+      "ginger garlic",
+      "garam masala"
+    ],
+    "steps": [
+      "Marinate and sear the chicken, then set aside.",
+      "Cook a thick onion-tomato masala with ginger garlic and spices.",
+      "Return the chicken and roast on medium until dark and semi-dry."
+    ],
+    "tags": [
+      "high-protein",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chicken+Roast+recipe+kerala"
+  },
+  {
+    "name": "Pazham Pori",
+    "cuisine": "kerala",
+    "meal_type": "snack",
+    "component": "snack",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "ripe plantain (pazham)",
+      "maida",
+      "turmeric",
+      "sugar",
+      "oil"
+    ],
+    "steps": [
+      "Slice the ripe plantain (pazham) lengthwise.",
+      "Dip in a batter of maida, a pinch of turmeric and sugar.",
+      "Deep-fry until golden and crisp."
+    ],
+    "tags": [
+      "treat",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Pazham+Pori+recipe+kerala",
+    "snack_type": "unhealthy",
+    "frequency": "monthly"
+  },
+  {
+    "name": "Kappa",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "tapioca (kappa)",
+      "grated coconut",
+      "green chili",
+      "turmeric",
+      "curry leaves"
+    ],
+    "steps": [
+      "Boil peeled tapioca (kappa) with turmeric and salt until soft, then drain.",
+      "Crush grated coconut with green chili, cumin and shallots.",
+      "Mix through the tapioca and finish with a curry-leaf tempering."
+    ],
+    "tags": [
+      "high-fiber",
+      "staple",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Kappa+recipe+kerala"
+  },
+  {
+    "name": "Paneer Butter Masala",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "paneer",
+      "tomato",
+      "onion",
+      "cashew",
+      "butter"
+    ],
+    "steps": [
+      "Make a smooth tomato-onion-cashew gravy and cook with butter and spices.",
+      "Add cream and a little sugar to balance.",
+      "Fold in paneer cubes and simmer briefly."
+    ],
+    "tags": [
+      "high-protein",
+      "kid-friendly",
+      "treat"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Paneer+Butter+Masala+recipe+kerala"
+  },
+  {
+    "name": "Dal Tadka",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "toor dal (pigeon pea)",
+      "onion",
+      "tomato",
+      "garlic",
+      "cumin"
+    ],
+    "steps": [
+      "Pressure-cook the toor dal (pigeon pea) with turmeric until soft.",
+      "Simmer with sautéed onion and tomato.",
+      "Pour over a hot tempering of garlic, cumin, dried red chili and ghee."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Dal+Tadka+recipe+kerala"
+  },
+  {
+    "name": "Rajma",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 35,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "kidney beans (rajma)",
+      "onion",
+      "tomato",
+      "ginger garlic",
+      "garam masala"
+    ],
+    "steps": [
+      "Pressure-cook the soaked kidney beans (rajma) until soft.",
+      "Cook a thick onion-tomato masala with ginger garlic and spices.",
+      "Add the beans with their stock and simmer until the gravy thickens."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Rajma+recipe+kerala"
+  },
+  {
+    "name": "Chana Masala",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "curry",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "chickpeas (channa)",
+      "onion",
+      "tomato",
+      "ginger garlic",
+      "garam masala"
+    ],
+    "steps": [
+      "Pressure-cook the soaked chickpeas (channa) until soft.",
+      "Cook an onion-tomato masala with ginger garlic and spices.",
+      "Add the chickpeas and simmer, finishing with a little chaat masala."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chana+Masala+recipe+kerala"
+  },
+  {
+    "name": "Curd Rice",
+    "cuisine": "south-indian",
+    "meal_type": "lunch",
+    "component": "rice_staple",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "curd (yogurt)",
+      "pomegranate",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Mash cooked rice and mix with curd (yogurt) and salt.",
+      "Temper mustard seeds, green chili, ginger and curry leaves and stir through.",
+      "Garnish with fresh pomegranate and serve cool."
+    ],
+    "tags": [
+      "light",
+      "quick",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Curd+Rice+recipe+kerala"
+  },
+  {
+    "name": "Coconut Chutney",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_side",
+    "prep_minutes": 10,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "grated coconut",
+      "green chili",
+      "ginger",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Grind grated coconut with green chili, ginger and a little roasted gram.",
+      "Loosen with water to a smooth chutney and salt.",
+      "Temper with mustard seeds and curry leaves."
+    ],
+    "tags": [
+      "side",
+      "quick",
+      "no-cook"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Coconut+Chutney+recipe+kerala"
+  },
+  {
+    "name": "Mutton Biryani",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "rice_staple",
+    "prep_minutes": 75,
+    "is_quick": false,
+    "diet": [
+      "non-veg"
+    ],
+    "frequency": "rare",
+    "ingredients": [
+      "basmati rice",
+      "mutton",
+      "onion",
+      "curd (yogurt)",
+      "biryani masala"
+    ],
+    "steps": [
+      "Marinate mutton in curd (yogurt) and biryani masala, then cook into a thick masala with fried onion until tender.",
+      "Parboil the basmati rice separately.",
+      "Layer rice over the mutton, dum on low heat until fragrant, and fluff."
+    ],
+    "tags": [
+      "high-protein",
+      "treat"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Mutton+Biryani+recipe+kerala"
+  },
+  {
+    "name": "Kanji",
+    "cuisine": "kerala",
+    "meal_type": "dinner",
+    "component": "rice_staple",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "green gram (moong)",
+      "grated coconut",
+      "water",
+      "salt"
+    ],
+    "steps": [
+      "Cook the rice with plenty of water to a soft porridge and season with salt.",
+      "Cook the green gram (moong) separately until soft.",
+      "Serve the kanji with the green gram and grated coconut on the side."
+    ],
+    "tags": [
+      "light",
+      "high-fiber",
+      "high-protein"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Kanji+recipe+kerala"
+  },
+  {
+    "name": "Vazhakumbu Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "banana flower (vazhakumbu)",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Clean and finely chop the banana flower (vazhakumbu) and cook with turmeric until soft.",
+      "Add crushed grated coconut with green chili.",
+      "Temper with mustard seeds and curry leaves and stir-fry until dry."
+    ],
+    "tags": [
+      "high-fiber",
+      "iron-rich",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Vazhakumbu+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Chia Seeds Pudding",
+    "cuisine": "continental",
+    "meal_type": "breakfast",
+    "component": "breakfast_protein",
+    "prep_minutes": 10,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "chia seeds",
+      "milk",
+      "apple",
+      "pomegranate (mathalam)",
+      "dates (eenthapazham)"
+    ],
+    "steps": [
+      "Soak the chia seeds in milk overnight, or at least 2 hours.",
+      "Top with chopped apple, pomegranate and dates before serving."
+    ],
+    "tags": [
+      "high-fiber",
+      "no-cook",
+      "light",
+      "tiffin-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Chia+Seeds+Pudding+recipe+kerala",
+    "also_components": [
+      "breakfast_side",
+      "breakfast_main"
+    ]
+  },
+  {
+    "name": "Beetroot Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "beetroot",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Splutter mustard seeds and curry leaves.",
+      "Add grated beetroot with turmeric and a coconut-green chili mix.",
+      "Cover and cook until tender, keeping it dry."
+    ],
+    "tags": [
+      "high-fiber",
+      "kid-friendly",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Beetroot+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Beetroot Mezhukkupuratti",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "beetroot",
+      "shallots",
+      "red chili",
+      "curry leaves",
+      "coconut oil"
+    ],
+    "steps": [
+      "Cut beetroot into thin batons.",
+      "Sauté in coconut oil with shallots, crushed red chili and turmeric.",
+      "Stir-fry on medium until tender and dry."
+    ],
+    "tags": [
+      "side",
+      "low-oil",
+      "kid-friendly"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Beetroot+Mezhukkupuratti+recipe+kerala"
+  },
+  {
+    "name": "Vegetable Pulav",
+    "cuisine": "indian",
+    "meal_type": "lunch",
+    "component": "rice_staple",
+    "prep_minutes": 30,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "basmati rice",
+      "carrot",
+      "beans",
+      "green peas",
+      "onion",
+      "whole spices",
+      "ghee"
+    ],
+    "steps": [
+      "Sauté whole spices and onion in ghee until fragrant.",
+      "Add mixed vegetables and soaked basmati rice with water.",
+      "Cook until fluffy and the grains stay separate."
+    ],
+    "tags": [
+      "staple",
+      "kid-friendly",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Vegetable+Pulav+recipe+kerala"
+  },
+  {
+    "name": "Pav Bhaji",
+    "cuisine": "indian",
+    "meal_type": "dinner",
+    "also_meal_types": [
+      "breakfast"
+    ],
+    "component": "breakfast_main",
+    "prep_minutes": 40,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "pav",
+      "potato",
+      "carrot",
+      "green peas",
+      "capsicum",
+      "tomato",
+      "onion",
+      "pav bhaji masala"
+    ],
+    "steps": [
+      "Boil and mash mixed vegetables and potato.",
+      "Cook with onion, tomato, butter and pav bhaji masala into a thick mash.",
+      "Serve hot with buttered toasted pav."
+    ],
+    "tags": [
+      "kid-friendly",
+      "treat"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Pav+Bhaji+recipe+kerala"
+  },
+  {
+    "name": "Godambu Dosa with Coconut Filling",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "whole wheat flour",
+      "grated coconut",
+      "jaggery",
+      "cardamom",
+      "salt"
+    ],
+    "steps": [
+      "Make a thin pouring batter from whole wheat flour and a pinch of salt.",
+      "Cook coconut with melted jaggery and cardamom into a sweet filling.",
+      "Cook thin dosas, spoon in the coconut filling, and fold over."
+    ],
+    "tags": [
+      "kid-friendly",
+      "treat",
+      "high-fiber"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Godambu+Dosa+with+Coconut+Filling+recipe+kerala"
+  },
+  {
+    "name": "Padavalanga Thoran",
+    "cuisine": "kerala",
+    "meal_type": "lunch",
+    "component": "veg_side",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "snake gourd (padavalanga)",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Chop the snake gourd (padavalanga) finely and cook with turmeric until soft.",
+      "Add crushed grated coconut with green chili.",
+      "Temper with mustard seeds and curry leaves and stir-fry until dry."
+    ],
+    "tags": [
+      "high-fiber",
+      "light",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Padavalanga+Thoran+recipe+kerala"
+  },
+  {
+    "name": "Pongal",
+    "cuisine": "south-indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_main",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "green gram (moong)",
+      "pepper",
+      "cumin",
+      "ghee"
+    ],
+    "steps": [
+      "Cook the rice and green gram (moong) together to a soft mush.",
+      "Temper pepper, cumin, ginger and cashew in ghee.",
+      "Mix the tempering through and serve warm."
+    ],
+    "tags": [
+      "high-protein",
+      "light",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Pongal+recipe+kerala"
+  },
+  {
+    "name": "Lemon Rice",
+    "cuisine": "south-indian",
+    "meal_type": "lunch",
+    "component": "rice_staple",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "rice",
+      "lemon",
+      "peanuts",
+      "green chili",
+      "curry leaves"
+    ],
+    "steps": [
+      "Temper mustard seeds, peanuts, green chili, curry leaves and turmeric.",
+      "Toss through cooked rice.",
+      "Stir in lemon juice and salt off the heat."
+    ],
+    "tags": [
+      "quick",
+      "tiffin-friendly",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Lemon+Rice+recipe+kerala"
+  },
+  {
+    "name": "Pasta",
+    "cuisine": "continental",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 25,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "serves_subset": true,
+    "ingredients": [
+      "pasta",
+      "tomato",
+      "onion",
+      "garlic",
+      "cheese"
+    ],
+    "steps": [
+      "Boil the pasta until al dente and drain.",
+      "Cook a tomato-garlic sauce with onion and herbs.",
+      "Toss the pasta through the sauce and finish with cheese."
+    ],
+    "tags": [
+      "kid-friendly",
+      "treat"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=Pasta+recipe+kerala"
+  },
+  {
+    "name": "Qubus",
+    "cuisine": "middle-eastern",
+    "meal_type": "dinner",
+    "component": "bread_staple",
+    "prep_minutes": 0,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "store_bought": true,
+    "ingredients": [
+      "qubus (pita / khubz bread)"
+    ],
+    "steps": [
+      "Shop-bought flatbread - warm briefly before serving."
+    ],
+    "note": "Store-bought. The bread served with grilled chicken.",
+    "tags": [
+      "store-bought",
+      "staple"
+    ],
+    "youtube": ""
+  },
+  {
+    "name": "Hummus",
+    "cuisine": "middle-eastern",
+    "meal_type": "dinner",
+    "component": "accompaniment",
+    "prep_minutes": 0,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "store_bought": true,
+    "ingredients": [
+      "hummus (store-bought tub)"
+    ],
+    "steps": [
+      "Shop-bought - spoon into a bowl and serve."
+    ],
+    "note": "Store-bought. Grilled-chicken accompaniment.",
+    "tags": [
+      "store-bought",
+      "accompaniment"
+    ],
+    "youtube": ""
+  },
+  {
+    "name": "Garlic Paste",
+    "cuisine": "middle-eastern",
+    "meal_type": "dinner",
+    "component": "accompaniment",
+    "prep_minutes": 0,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "store_bought": true,
+    "ingredients": [
+      "garlic paste / toum (store-bought tub)"
+    ],
+    "steps": [
+      "Shop-bought - spoon into a bowl and serve."
+    ],
+    "note": "Store-bought. Alternative to hummus with grilled chicken.",
+    "tags": [
+      "store-bought",
+      "accompaniment"
+    ],
+    "youtube": ""
+  },
+  {
+    "name": "Banana",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_side",
+    "prep_minutes": 0,
+    "is_quick": false,
+    "diet": [
+      "veg"
+    ],
+    "store_bought": true,
+    "ingredients": [
+      "banana"
+    ],
+    "steps": [
+      "Serve fresh alongside the breakfast."
+    ],
+    "note": "Store-bought. The pairing for Puttu and Upma.",
+    "tags": [
+      "store-bought",
+      "fruit",
+      "healthy"
+    ],
+    "youtube": ""
+  },
+  {
+    "name": "Plain Curd",
+    "cuisine": "kerala",
+    "meal_type": "dinner",
+    "component": "accompaniment",
+    "prep_minutes": 5,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "curd (thairu)"
+    ],
+    "steps": [
+      "Whisk the curd lightly with a pinch of salt.",
+      "Serve cold alongside the parathas."
+    ],
+    "note": "The only thing served with methi or drumstick leaf paratha - no curry.",
+    "tags": [
+      "no-cook",
+      "light",
+      "side"
+    ],
+    "youtube": ""
+  },
+  {
+    "name": "Omelette",
+    "cuisine": "indian",
+    "meal_type": "breakfast",
+    "component": "breakfast_protein",
+    "prep_minutes": 10,
+    "is_quick": true,
+    "diet": [
+      "eggetarian",
+      "non-veg"
+    ],
+    "ingredients": [
+      "eggs",
+      "onion",
+      "green chili",
+      "coriander"
+    ],
+    "steps": [
+      "Beat the eggs with chopped onion, green chili and coriander.",
+      "Pour into a hot pan and cook both sides till set."
+    ],
+    "tags": [
+      "high-protein",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=indian+omelette+recipe"
+  },
+  {
+    "name": "Boiled Lentils",
+    "cuisine": "kerala",
+    "meal_type": "breakfast",
+    "component": "breakfast_protein",
+    "prep_minutes": 15,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "lentils (moong or masoor)",
+      "turmeric",
+      "curry leaves"
+    ],
+    "steps": [
+      "Boil the lentils with a little turmeric and salt till soft.",
+      "Drain and serve warm as a protein side."
+    ],
+    "tags": [
+      "high-protein",
+      "high-fiber",
+      "quick",
+      "side"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=boiled+lentils+breakfast",
+    "also_components": [
+      "breakfast_side"
+    ]
+  },
+  {
+    "name": "Fruit Bowl",
+    "cuisine": "continental",
+    "meal_type": "snack",
+    "component": "snack",
+    "prep_minutes": 5,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "banana",
+      "apple",
+      "papaya",
+      "pomegranate (mathalam)"
+    ],
+    "steps": [
+      "Chop whatever fruit is in the house and serve."
+    ],
+    "tags": [
+      "healthy",
+      "no-cook",
+      "snack"
+    ],
+    "youtube": "",
+    "snack_type": "healthy",
+    "frequency": "weekly"
+  },
+  {
+    "name": "Sundal",
+    "cuisine": "south-indian",
+    "meal_type": "snack",
+    "component": "snack",
+    "prep_minutes": 20,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "black chickpeas (kadala)",
+      "grated coconut",
+      "green chili",
+      "curry leaves",
+      "mustard seeds"
+    ],
+    "steps": [
+      "Boil the soaked chickpeas till soft and drain.",
+      "Temper mustard, curry leaves and chili, then toss with coconut."
+    ],
+    "tags": [
+      "healthy",
+      "high-protein",
+      "snack"
+    ],
+    "youtube": "https://www.youtube.com/results?search_query=sundal+recipe",
+    "snack_type": "healthy",
+    "frequency": "weekly"
+  },
+  {
+    "name": "Tea and Biscuits",
+    "cuisine": "indian",
+    "meal_type": "snack",
+    "component": "snack",
+    "prep_minutes": 5,
+    "is_quick": true,
+    "diet": [
+      "veg"
+    ],
+    "ingredients": [
+      "tea leaves",
+      "milk",
+      "biscuits"
+    ],
+    "steps": [
+      "Brew the tea and serve with a couple of biscuits."
+    ],
+    "tags": [
+      "quick",
+      "snack",
+      "treat"
+    ],
+    "youtube": "",
+    "snack_type": "unhealthy",
+    "frequency": "weekly"
+  }
+]
